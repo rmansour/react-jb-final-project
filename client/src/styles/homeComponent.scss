@@ -1,0 +1,36 @@
+.home__component {
+  //padding-top: ;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  &--left-div {
+    //display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    //background-color: aqua;
+    overflow-y: auto;
+    width: 55%;
+  }
+
+  &--right-div {
+    overflow-y: auto;
+    width: 45%;
+    //min-height: 100vh;
+    //background-color: aquamarine;
+  }
+}
+
+
+@media screen and (min-width: 320px) {
+  .home__component {
+
+    &--left-div {
+      width: 100%;
+      padding: 0 ;
+    }
+
+
+  }
+}
