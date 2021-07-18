@@ -89,7 +89,6 @@ class App extends Component {
                                 </div>
 
                                 {currentUser ? (
-                                    // <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <div className="navbar-nav ms-auto">
                                         <li className="nav-item">
                                             <Link to={"/profile"} className="nav-link">
@@ -102,10 +101,7 @@ class App extends Component {
                                             </a>
                                         </li>
                                     </div>
-                                    // </div>
                                 ) : (
-                                    // <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
                                     <div className="navbar-nav ml-auto navbar__login">
                                         <li className="nav-item">
                                             <Link to={"/login"} className="nav-link">
@@ -119,7 +115,6 @@ class App extends Component {
                                             </Link>
                                         </li>
                                     </div>
-                                    // </div>
                                 )}
                             </div>
                         </div>
