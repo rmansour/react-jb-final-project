@@ -35,16 +35,13 @@ export default class Home extends Component {
         // console.log('homeComp', this.state.vacations);
         return (
             <div className="home__component">
-                    <div className="home__component--left-div">
-                        {
-                            this.state.vacations.map(vacation => {
-                                console.log(vacation)
-                                return <VacationCard vacation={vacation}/>
-                            })
-                        }
-                </div>
-
-                <div className="home__component--right-div">
+                <div className="row">
+                {
+                    this.state.vacations.map(vacation => {
+                        console.log(vacation)
+                        return <VacationCard vacation={vacation}/>
+                    })
+                }
                 </div>
             </div>
         );

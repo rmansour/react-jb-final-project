@@ -26,7 +26,6 @@ class App extends Component {
         this.logOut = this.logOut.bind(this);
 
         this.state = {
-            showModeratorBoard: false,
             showAdminBoard: false,
             currentUser: undefined
         };

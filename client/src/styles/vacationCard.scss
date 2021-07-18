@@ -1,7 +1,7 @@
 .vacation__card {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 1.3rem 1.3rem 1rem;
   width: 100%;
   border-bottom: solid lightgrey;
   border-width: .5px;
@@ -12,19 +12,18 @@
 
     & img {
       width: 100%;
-      border-radius: .5rem;
+      border-radius: 1px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.11);
+      height: 100%;
+      object-fit: cover;
     }
   }
 
   &--body {
-    width: 50%;
-    margin-left: 1rem;
     position: relative;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-size: 1.1rem;
-
 
     &-dates-border {
       border-bottom: solid black;
@@ -32,7 +31,18 @@
       border-width: .5px;
       padding-bottom: .5rem;
     }
+
+    &-header {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    &-description {
+      margin-bottom: 1rem!important;
+    }
   }
+
+
 
   &--price {
     font-size: 1rem;
@@ -57,22 +67,54 @@
 
     &--body {
       width: 100%;
-      margin-left: 0;
-      position: relative;
-      display: flex;
+
       flex-direction: column;
       justify-content: center;
       font-size: 1.1rem;
       text-align: justify;
-
-      &-dates-border {
-        border-bottom: solid black;
-        border-color: rgba(0, 0, 0, .3);
-        border-width: .5px;
-        padding-bottom: .5rem;
-      }
     }
-
   }
 }
+
+@media screen and (min-width: 768px) {
+  .vacation__card {
+    flex-direction: row;
+
+    &--destination-pic {
+      width: 50%;
+    }
+
+    &--body {
+      width: 50%;
+      margin-left: 1rem;
+
+      &-header {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .vacation__card {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border-right: solid lightgrey;
+    border-width: .5px;
+    border-color: rgba(0, 0, 0, .15);
+
+    &--body {
+      font-size: 1.2rem;
+    }
+
+    &--price {
+      font-size: 1.2em;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
+
 

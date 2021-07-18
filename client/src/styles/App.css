@@ -9,10 +9,23 @@
   padding-left: 15px;
 }
 :root .navbar-brand {
-  line-height: 1.7;
   font-size: 1.3rem;
   padding-top: 0;
-  padding-bottom: 0;
+}
+:root .navbar-expand {
+  justify-content: space-between;
+}
+:root .navbar__home {
+  justify-content: flex-start;
+}
+:root .navbar__login {
+  justify-content: flex-end;
+}
+:root p {
+  margin: 0;
+}
+:root .row {
+  margin: 0;
 }
 
 .app__component {
