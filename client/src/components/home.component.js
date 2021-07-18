@@ -37,9 +37,9 @@ export default class Home extends Component {
             <div className="home__component">
                 <div className="row">
                 {
-                    this.state.vacations.map(vacation => {
+                    this.state.vacations.map((vacation, index) => {
                         console.log(vacation)
-                        return <VacationCard vacation={vacation}/>
+                        return <VacationCard index={index} vacation={vacation}/>
                     })
                 }
                 </div>

@@ -1,97 +1,163 @@
 .vacation__card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 1.3rem 1.3rem 1rem;
   width: 100%;
   border-bottom: solid lightgrey;
   border-width: 0.5px;
   border-color: rgba(0, 0, 0, 0.15);
+  position: relative;
 }
-.vacation__card--destination-pic {
+.vacation__card .overflow-description-div {
+  height: 250px;
+  padding: 1rem 2rem 1rem 0.6rem;
+  text-align: justify;
+  background-color: rgba(248, 249, 250, 0.7);
+}
+.vacation__card--wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.vacation__card--wrapper--destination-pic {
   width: 49%;
 }
-.vacation__card--destination-pic img {
+.vacation__card--wrapper--destination-pic img {
   width: 100%;
-  border-radius: 1px;
+  border-radius: 0.3rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.11);
-  height: 100%;
+  max-height: 300px;
   object-fit: cover;
 }
-.vacation__card--body {
+.vacation__card--wrapper--body {
+  display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   font-size: 1.1rem;
 }
-.vacation__card--body-dates-border {
+.vacation__card--wrapper--body-header {
+  margin-bottom: 0 !important;
+}
+.vacation__card--wrapper--body .read-more-link {
+  text-decoration: none;
+}
+.vacation__card--wrapper--body-dates-border {
+  margin-bottom: 0;
   border-bottom: solid black;
   border-color: rgba(0, 0, 0, 0.3);
   border-width: 0.5px;
   padding-bottom: 0.5rem;
 }
-.vacation__card--body-header {
+.vacation__card--wrapper--body-header {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.vacation__card--body-description {
-  margin-bottom: 1rem !important;
+.vacation__card--wrapper--body-description {
+  margin-top: 0;
+  margin-bottom: auto !important;
+  overflow-y: auto;
 }
-.vacation__card--price {
-  font-size: 1rem;
+.vacation__card--wrapper--body--price {
+  height: max-content;
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-top: -0.425rem;
+}
+.vacation__card--wrapper--body--price > p {
+  margin-bottom: 0 !important;
 }
 
 @media screen and (min-width: 320px) {
   .vacation__card {
     width: 100%;
+  }
+  .vacation__card--wrapper {
     display: flex;
     flex-direction: column;
   }
-  .vacation__card--destination-pic {
+  .vacation__card--wrapper--destination-pic {
     width: 100%;
   }
-  .vacation__card--destination-pic img {
+  .vacation__card--wrapper--destination-pic img {
     width: 100%;
-    border-radius: 0.5rem;
   }
-  .vacation__card--body {
+  .vacation__card--wrapper--body {
     width: 100%;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 1.1rem;
     text-align: justify;
+    padding-bottom: 0;
+  }
+  .vacation__card--wrapper--body-header {
+    margin-top: 1.5rem;
+  }
+  .vacation__card--wrapper--body-description {
+    margin-bottom: 1.2rem !important;
   }
 }
 @media screen and (min-width: 768px) {
   .vacation__card {
+    flex-direction: column;
+  }
+  .vacation__card--wrapper {
     flex-direction: row;
   }
-  .vacation__card--destination-pic {
+  .vacation__card--wrapper--destination-pic {
     width: 50%;
   }
-  .vacation__card--body {
+  .vacation__card--wrapper--body {
     width: 50%;
-    margin-left: 1rem;
+    margin-left: 1.8rem;
+    justify-content: flex-start;
   }
-  .vacation__card--body-header {
+  .vacation__card--wrapper--body-header {
     margin-top: 0;
+  }
+  .vacation__card--wrapper--body-description {
+    margin-bottom: auto !important;
   }
 }
 @media screen and (min-width: 1200px) {
   .vacation__card {
+    flex-direction: column;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+  }
+  .vacation__card--wrapper {
     display: flex;
     flex-direction: row;
-    width: 50%;
-    border-right: solid lightgrey;
-    border-width: 0.5px;
-    border-color: rgba(0, 0, 0, 0.15);
   }
-  .vacation__card--body {
+  .vacation__card--wrapper--destination-pic {
+    width: 40%;
+    height: auto;
+  }
+  .vacation__card--wrapper--destination-pic img {
+    width: 100%;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.11);
+    height: 100%;
+    object-fit: cover;
+  }
+  .vacation__card--wrapper--body {
+    width: 60%;
     font-size: 1.2rem;
+    justify-content: space-between;
+    flex-direction: column;
   }
-  .vacation__card--price {
+  .vacation__card--wrapper--body-description {
+    margin-bottom: auto !important;
+  }
+  .vacation__card--wrapper--body--price {
     font-size: 1.2em;
-    position: absolute;
-    bottom: 0;
+  }
+}
+@media screen and (min-width: 1490px) {
+  .vacation__card {
+    margin: 1rem auto;
+    flex-direction: column;
+    width: 48%;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
 }
 
