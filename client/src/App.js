@@ -4,6 +4,7 @@ import {Link, Route, Router, Switch} from "react-router-dom";
 
 // styles
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap';
 import "./styles/App.css";
 
 // components
