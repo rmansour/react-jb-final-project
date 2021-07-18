@@ -1,17 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link, Route, Router, Switch} from "react-router-dom";
-import {ThemeProvider} from 'styled-components';
-import {theme} from './theme';
-import { useOnClickOutside } from './hooks';
-import { GlobalStyles } from './global';
-import { Burger, Menu } from './components';
-import FocusLock from 'react-focus-lock';
 
-
+// styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 
+// components
 import Login from './components/login';
 import Register from "./components/register";
 import Home from "./components/home.component";
@@ -19,6 +14,7 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardAdmin from "./components/board-admin.component";
 
+// actions, helpers and history
 import {logout} from "./actions/auth";
 import {clearMessage} from "./actions/messages";
 import {history} from './helpers/history';
