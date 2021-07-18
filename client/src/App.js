@@ -1,10 +1,15 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link, Route, Router, Switch} from "react-router-dom";
+import {ThemeProvider} from 'styled-components';
+import {theme} from './theme';
+import { useOnClickOutside } from './hooks';
+import { GlobalStyles } from './global';
+import { Burger, Menu } from './components';
+import FocusLock from 'react-focus-lock';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap'
 import "./styles/App.css";
 
 import Login from './components/login';
@@ -55,20 +60,13 @@ class App extends Component {
 
         return (
             <Router history={history}>
-                <>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <div className="container-fluid">
-                            <Link to={"/"} className="navbar-brand">
-                                Travel Agency
-                            </Link>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"/>
-                            </button>
-
-                            <div className="navbar-nav mr-auto navbar__home me-auto mb-2 mb-lg-0">
-                                <div className="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
+                    <>
+                        <nav className="navbar navbar-expand bg-light">
+                            <div className="navbar-nav mr-auto navbar__home">
+                                <Link to={"/"} className="navbar-brand">
+                                    Travel Agency
+                                </Link>
+                                <div className="navbar-nav mr-auto">
                                     {showAdminBoard && (
                                         <li className="nav-item">
                                             <Link to={"/admin"} className="nav-link">
@@ -85,24 +83,10 @@ class App extends Component {
                                         </li>
                                     )}
                                 </div>
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a className="dropdown-item" href="#">Action</a></li>
-                                        <li><a className="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr className="dropdown-divider"/>
-                                        </li>
-                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
                             </div>
 
                             {currentUser ? (
-                                <div className="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
+                                <div className="navbar-nav ml-auto navbar__login">
                                     <li className="nav-item">
                                         <Link to={"/profile"} className="nav-link">
                                             {currentUser.username}
@@ -129,22 +113,20 @@ class App extends Component {
                                     </li>
                                 </div>
                             )}
+                        </nav>
 
+                        <div className="app__component">
+                            <Switch>
+                                <Route exact path={["/", "/home"]} component={Home}/>
+                                <Route exact path="/login" component={Login}/>
+                                <Route exact path="/register" component={Register}/>
+                                <Route exact path="/profile" component={Profile}/>
+                                <Route path="/user" component={BoardUser}/>
+                                <Route path="/admin" component={BoardAdmin}/>
+                                {/*<Route path="/vacation-info/:id" component={VacationCard}></Route>*/}
+                            </Switch>
                         </div>
-                    </nav>
-
-                    <div className="app__component">
-                        <Switch>
-                            <Route exact path={["/", "/home"]} component={Home}/>
-                            <Route exact path="/login" component={Login}/>
-                            <Route exact path="/register" component={Register}/>
-                            <Route exact path="/profile" component={Profile}/>
-                            <Route path="/user" component={BoardUser}/>
-                            <Route path="/admin" component={BoardAdmin}/>
-                            {/*<Route path="/vacation-info/:id" component={VacationCard}></Route>*/}
-                        </Switch>
-                    </div>
-                </>
+                    </>
             </Router>
         );
     }
