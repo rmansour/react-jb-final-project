@@ -68,7 +68,7 @@ class App extends Component {
                             </button>
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <div className="navbar-nav me-auto mb-2 mb-lg-0">
                                     {showAdminBoard && (
                                         <li className="nav-item">
                                             <Link to={"/admin"} className="nav-link">
@@ -84,42 +84,42 @@ class App extends Component {
                                             </Link>
                                         </li>
                                     )}
-                                </ul>
+                                </div>
+
+                                {currentUser ? (
+                                    // <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <div className="navbar-nav ms-auto">
+                                            <li className="nav-item">
+                                                <Link to={"/profile"} className="nav-link">
+                                                    {currentUser.username}
+                                                </Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a href="/login" className="nav-link" onClick={this.logOut}>
+                                                    LogOut
+                                                </a>
+                                            </li>
+                                        </div>
+                                    // </div>
+                                ) : (
+                                    // <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+                                        <div className="navbar-nav ml-auto navbar__login">
+                                            <li className="nav-item">
+                                                <Link to={"/login"} className="nav-link">
+                                                    Login
+                                                </Link>
+                                            </li>
+
+                                            <li className="nav-item">
+                                                <Link to={"/register"} className="nav-link">
+                                                    Sign Up
+                                                </Link>
+                                            </li>
+                                        </div>
+                                    // </div>
+                                )}
                             </div>
-
-                            {currentUser ? (
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
-                                        <li className="nav-item">
-                                            <Link to={"/profile"} className="nav-link">
-                                                {currentUser.username}
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a href="/login" className="nav-link" onClick={this.logOut}>
-                                                LogOut
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            ) : (
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-                                    <div className="navbar-nav ml-auto navbar__login">
-                                        <li className="nav-item">
-                                            <Link to={"/login"} className="nav-link">
-                                                Login
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link to={"/register"} className="nav-link">
-                                                Sign Up
-                                            </Link>
-                                        </li>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </nav>
 

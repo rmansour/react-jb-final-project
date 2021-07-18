@@ -1,29 +1,12 @@
 .navbar {
-  padding-right: 10px;
-  padding-left: 10px;
-  height: 6vh;
-  display: inline-flex;
-  width: 100%;
-  justify-content: center;
-  align-self: center;
-  align-content: center;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 .navbar-brand {
+  line-height: 1.7;
   font-size: 1.3rem;
   padding-top: 0;
   padding-bottom: 0;
-}
-
-.navbar-expand {
-  justify-content: space-between;
-}
-
-.navbar__home {
-  justify-content: flex-start;
-}
-
-.navbar__login {
-  justify-content: flex-end;
 }
 
 /*# sourceMappingURL=navigation.css.map */
