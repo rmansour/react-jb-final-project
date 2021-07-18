@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link, Route, Router, Switch} from "react-router-dom";
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap'
 import "./styles/App.css";
 
 import Login from './components/login';
@@ -14,7 +16,6 @@ import BoardAdmin from "./components/board-admin.component";
 
 import {logout} from "./actions/auth";
 import {clearMessage} from "./actions/messages";
-
 import {history} from './helpers/history';
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
             showAdminBoard: false,
             currentUser: undefined
         };
+
 
         history.listen((location) => {
             props.dispatch(clearMessage()); // clear message when changing location
@@ -54,59 +56,81 @@ class App extends Component {
         return (
             <Router history={history}>
                 <>
-                    <nav className="navbar navbar-expand bg-light">
-                        <div className="navbar-nav mr-auto navbar__home">
-
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                        <div className="container-fluid">
                             <Link to={"/"} className="navbar-brand">
                                 Travel Agency
                             </Link>
-                            <div className="navbar-nav mr-auto">
-                                {showAdminBoard && (
-                                    <li className="nav-item">
-                                        <Link to={"/admin"} className="nav-link">
-                                            Admin Board
-                                        </Link>
-                                    </li>
-                                )}
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"/>
+                            </button>
 
-                                {currentUser && (
-                                    <li className="nav-item">
-                                        <Link to={"/user"} className="nav-link">
-                                            User
-                                        </Link>
-                                    </li>
-                                )}
-                            </div>
-                        </div>
+                            <div className="navbar-nav mr-auto navbar__home me-auto mb-2 mb-lg-0">
+                                <div className="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
+                                    {showAdminBoard && (
+                                        <li className="nav-item">
+                                            <Link to={"/admin"} className="nav-link">
+                                                Admin Board
+                                            </Link>
+                                        </li>
+                                    )}
 
-                        {currentUser ? (
-                            <div className="navbar-nav ml-auto navbar__login">
-                                <li className="nav-item">
-                                    <Link to={"/profile"} className="nav-link">
-                                        {currentUser.username}
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="/login" className="nav-link" onClick={this.logOut}>
-                                        LogOut
+                                    {currentUser && (
+                                        <li className="nav-item">
+                                            <Link to={"/user"} className="nav-link">
+                                                User
+                                            </Link>
+                                        </li>
+                                    )}
+                                </div>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown
                                     </a>
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a className="dropdown-item" href="#">Action</a></li>
+                                        <li><a className="dropdown-item" href="#">Another action</a></li>
+                                        <li>
+                                            <hr className="dropdown-divider"/>
+                                        </li>
+                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
                                 </li>
                             </div>
-                        ) : (
-                            <div className="navbar-nav ml-auto navbar__login">
-                                <li className="nav-item">
-                                    <Link to={"/login"} className="nav-link">
-                                        Login
-                                    </Link>
-                                </li>
 
-                                <li className="nav-item">
-                                    <Link to={"/register"} className="nav-link">
-                                        Sign Up
-                                    </Link>
-                                </li>
-                            </div>
-                        )}
+                            {currentUser ? (
+                                <div className="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
+                                    <li className="nav-item">
+                                        <Link to={"/profile"} className="nav-link">
+                                            {currentUser.username}
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a href="/login" className="nav-link" onClick={this.logOut}>
+                                            LogOut
+                                        </a>
+                                    </li>
+                                </div>
+                            ) : (
+                                <div className="navbar-nav ml-auto navbar__login">
+                                    <li className="nav-item">
+                                        <Link to={"/login"} className="nav-link">
+                                            Login
+                                        </Link>
+                                    </li>
+
+                                    <li className="nav-item">
+                                        <Link to={"/register"} className="nav-link">
+                                            Sign Up
+                                        </Link>
+                                    </li>
+                                </div>
+                            )}
+
+                        </div>
                     </nav>
 
                     <div className="app__component">
