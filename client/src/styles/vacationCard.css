@@ -38,8 +38,28 @@
 .vacation__card--wrapper--body-header {
   margin-bottom: 0 !important;
 }
+.vacation__card--wrapper--body-header--icon-wrapper {
+  display: inline-flex;
+  width: max-content;
+  position: absolute;
+}
+.vacation__card--wrapper--body-header--icon-wrapper--followers-count {
+  font-size: 1rem;
+  width: max-content;
+  height: max-content;
+  margin-bottom: 0;
+}
+.vacation__card--wrapper--body-header--icon-wrapper--heart-icon {
+  cursor: pointer;
+  width: max-content;
+  height: max-content;
+  font-size: 26px;
+  margin: 0 0 0 10px;
+  padding: 0;
+}
 .vacation__card--wrapper--body .read-more-link {
   text-decoration: none;
+  margin-bottom: auto;
 }
 .vacation__card--wrapper--body-dates-border {
   margin-bottom: 0;
@@ -54,14 +74,13 @@
 }
 .vacation__card--wrapper--body-description {
   margin-top: 0;
-  margin-bottom: auto !important;
   overflow-y: auto;
 }
 .vacation__card--wrapper--body--price {
   height: max-content;
   font-size: 1.1rem;
   font-style: italic;
-  margin-top: -0.425rem;
+  margin-top: 0.8rem;
 }
 .vacation__card--wrapper--body--price > p {
   margin-bottom: 0 !important;
@@ -92,8 +111,9 @@
   .vacation__card--wrapper--body-header {
     margin-top: 1.5rem;
   }
-  .vacation__card--wrapper--body-description {
-    margin-bottom: 1.2rem !important;
+  .vacation__card--wrapper--body-header--icon-wrapper {
+    right: 0;
+    top: 1.8rem;
   }
 }
 @media screen and (min-width: 768px) {
@@ -114,8 +134,12 @@
   .vacation__card--wrapper--body-header {
     margin-top: 0;
   }
-  .vacation__card--wrapper--body-description {
-    margin-bottom: auto !important;
+  .vacation__card--wrapper--body-header--icon-wrapper {
+    right: 0;
+    top: 1rem;
+  }
+  .vacation__card--wrapper--body--price {
+    margin-top: auto;
   }
 }
 @media screen and (min-width: 1200px) {
@@ -144,9 +168,6 @@
     justify-content: space-between;
     flex-direction: column;
   }
-  .vacation__card--wrapper--body-description {
-    margin-bottom: auto !important;
-  }
   .vacation__card--wrapper--body--price {
     font-size: 1.2em;
   }
@@ -158,6 +179,10 @@
     width: 48%;
     border: 0.5px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+  }
+  .vacation__card--wrapper--body-header--icon-wrapper--heart-icon {
+    right: 0;
+    top: 0.5rem;
   }
 }
 

@@ -41,6 +41,7 @@ class App extends Component {
 
         if (user) {
             this.setState({
+                // currentUser: user,
                 currentUser: user,
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
             });
@@ -81,7 +82,7 @@ class App extends Component {
                                     {currentUser && (
                                         <li className="nav-item">
                                             <Link to={"/user"} className="nav-link">
-                                                User
+                                                Favourites
                                             </Link>
                                         </li>
                                     )}

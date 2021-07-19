@@ -1,3 +1,7 @@
+:root {
+  /* Works on Firefox */
+  /* Works on Chrome, Edge, and Safari */
+}
 :root .hide {
   display: none;
   visibility: hidden;
@@ -21,15 +25,31 @@
 :root .navbar__login {
   justify-content: flex-end;
 }
-:root p {
-  margin: 0;
-}
 :root .row {
   margin: 0;
 }
+:root body {
+  margin: 0 auto;
+}
+:root * {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 white;
+}
+:root *::-webkit-scrollbar {
+  width: 8px;
+}
+:root *::-webkit-scrollbar-track {
+  background: white;
+}
+:root *::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
+  border-radius: 20px;
+}
 
 .app__component {
+  max-width: 1500px;
   height: 94vh;
+  margin: 0 auto;
 }
 
 label {

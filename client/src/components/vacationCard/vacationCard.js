@@ -3,14 +3,14 @@ import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
 
 
-function VacationCard({vacation, index}) {
+function VacationCard({vacation}) {
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
-    console.log(vacation, index);
+    console.log('render VacationCard');
 
     const expanded = (text) => {
         if (readMore === true)
-            return <div className="overflow-description-div" >{text}</div>;
+            return <div className="overflow-description-div">{text}</div>;
         else
             return <div>{text.substring(0, MAX_LENGTH)}...</div>;
     }
@@ -26,6 +26,10 @@ function VacationCard({vacation, index}) {
                 <div className="vacation__card--wrapper--body">
                     <header className="vacation__card--wrapper--body-header">
                         <h2>{vacation.destination}</h2>
+                        <div className="vacation__card--wrapper--body-header--icon-wrapper">
+                            <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{vacation.followers}</p>
+                            <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"/>
+                        </div>
                         <section className="vacation__card--wrapper--body-dates">
                             <p>
                                 <i className="vacation__card--wrapper--body-dates-border">{(dateFormat(vacation.start_date, "dd.mm.yyyy"))} - {dateFormat(vacation.end_date, "dd.mm.yyyy")}</i>
@@ -36,7 +40,9 @@ function VacationCard({vacation, index}) {
                     <div className="vacation__card--wrapper--body-description">
                         {expanded(vacation.description)}
                     </div>
-                    <a className="read-more-link" onClick={() => {setReadMore(!readMore)}}>
+                    <a className="read-more-link" onClick={() => {
+                        setReadMore(!readMore)
+                    }}>
                         <p>{linkName}</p>
                     </a>
                     <div className="vacation__card--wrapper--body--price">

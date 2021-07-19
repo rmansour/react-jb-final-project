@@ -5,20 +5,21 @@
   height: 100%;
   flex-direction: column;
 
-  &--left-div {
-    //display: flex;
-    padding: 1rem;
-    flex-direction: column;
-    //background-color: aqua;
-    overflow-y: auto;
-    width: 55%;
+  &--search-div {
+    width: 100%;
+    margin-top: 1rem;
+
+    &--form {
+      margin: 0 1rem 0 1rem;
+      & input {
+        margin-right: 10px;
+        border-radius: 20px;
+      }
+    }
   }
 
-  &--right-div {
+  &--cards-div {
     overflow-y: auto;
-    width: 45%;
-    //min-height: 100vh;
-    //background-color: aquamarine;
   }
 }
 
@@ -26,10 +27,6 @@
 @media screen and (min-width: 320px) {
   .home__component {
 
-    &--left-div {
-      width: 100%;
-      padding: 0 ;
-    }
   }
 }
 

@@ -4,22 +4,19 @@
   height: 100%;
   flex-direction: column;
 }
-.home__component--left-div {
-  padding: 1rem;
-  flex-direction: column;
-  overflow-y: auto;
-  width: 55%;
+.home__component--search-div {
+  width: 100%;
+  margin-top: 1rem;
 }
-.home__component--right-div {
-  overflow-y: auto;
-  width: 45%;
+.home__component--search-div--form {
+  margin: 0 1rem 0 1rem;
 }
-
-@media screen and (min-width: 320px) {
-  .home__component--left-div {
-    width: 100%;
-    padding: 0;
-  }
+.home__component--search-div--form input {
+  margin-right: 10px;
+  border-radius: 20px;
+}
+.home__component--cards-div {
+  overflow-y: auto;
 }
 
 /*# sourceMappingURL=homeComponent.css.map */

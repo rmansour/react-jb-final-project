@@ -8,16 +8,43 @@
 
     @import "navigation";
 
-    p {
-        margin: 0;
-    }
+    //p {
+    //    margin: 0;
+    //}
     .row {
         margin: 0;
+    }
+
+    body {
+        margin: 0 auto;
+    }
+
+    /* Works on Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #d0d0d0 white;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: white;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #d0d0d0;
+        border-radius: 20px;
+        //border: 3px solid #ececec;
     }
 }
 
 .app__component {
+    max-width: 1500px;
     height: 94vh;
+    margin: 0 auto;
 }
 
 label {
