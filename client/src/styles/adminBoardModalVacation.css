@@ -3,11 +3,9 @@
     justify-content: space-evenly;
     flex-direction: row;
 }
-
 .modal__component--form-vacation--dates label {
     width: 100%;
 }
-
 .modal__component--form-vacation--dates input {
     width: 100%;
 }
