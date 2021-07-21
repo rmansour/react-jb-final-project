@@ -3,10 +3,9 @@ import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
 
 
-function VacationCard({vacation}) {
+function VacationCard({vacation, handleFollowers}) {
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
-    console.log('render VacationCard');
 
     const expanded = (text) => {
         if (readMore === true)
@@ -25,10 +24,12 @@ function VacationCard({vacation}) {
                 </div>
                 <div className="vacation__card--wrapper--body">
                     <header className="vacation__card--wrapper--body-header">
-                        <h2>{vacation.destination}</h2>
+                        <h2 className="vacation__card--wrapper--body-header-text">{vacation.destination}</h2>
                         <div className="vacation__card--wrapper--body-header--icon-wrapper">
                             <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{vacation.followers}</p>
-                            <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"/>
+                            {/*fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon*/}
+                            <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"
+                               onClick={(e) => handleFollowers(e, vacation)}/>
                         </div>
                         <section className="vacation__card--wrapper--body-dates">
                             <p>
@@ -40,6 +41,7 @@ function VacationCard({vacation}) {
                     <div className="vacation__card--wrapper--body-description">
                         {expanded(vacation.description)}
                     </div>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a className="read-more-link" onClick={() => {
                         setReadMore(!readMore)
                     }}>

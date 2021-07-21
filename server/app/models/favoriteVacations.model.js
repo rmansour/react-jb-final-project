@@ -12,7 +12,10 @@ module.exports = (sequelize, Sequelize) => {
         userID: {
             type: Sequelize.INTEGER,
             allowNull: false
-
+        },
+        followedVacation: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
     return favoriteVacations;

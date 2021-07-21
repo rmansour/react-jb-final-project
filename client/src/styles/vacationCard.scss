@@ -9,7 +9,6 @@
   position: relative;
 
 
-
   .overflow-description-div {
     height: 250px;
     padding: 1rem 2rem 1rem .6rem;
@@ -62,7 +61,6 @@
             font-size: 26px;
             margin: 0 0 0 10px;
             padding: 0;
-            //position: absolute;
           }
         }
       }
@@ -135,16 +133,16 @@
         &-header {
           margin-top: 1.5rem;
 
+          &-text {
+            width: 60%;
+            word-wrap: break-word;
+          }
+
           &--icon-wrapper {
             right: 0;
             top: 1.8rem;
           }
         }
-
-        &-description {
-          //margin-bottom: 1.2rem !important;
-        }
-
       }
     }
   }
@@ -169,14 +167,15 @@
         &-header {
           margin-top: 0;
 
+          &-text {
+            width: 75%;
+            word-wrap: break-word;
+          }
+
           &--icon-wrapper {
             right: 0;
             top: 1rem;
           }
-        }
-
-        &-description {
-          //margin-bottom: auto !important;
         }
 
         &--price {
@@ -215,10 +214,6 @@
         justify-content: space-between;
         flex-direction: column;
 
-        &-description {
-          //margin-bottom: auto !important;
-        }
-
         &--price {
           font-size: 1.2em;
         }
@@ -238,8 +233,12 @@
     &--wrapper {
       &--body {
 
-
         &-header {
+
+          &-text {
+            width: 75%;
+            word-wrap: break-word;
+          }
 
           &--icon-wrapper {
             &--heart-icon {

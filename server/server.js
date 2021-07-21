@@ -52,7 +52,7 @@ db.sequelize.sync().then(() => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/vacationsRoute')(app);
-require('./app/routes/favoriteVacations')(app);
+require('./app/routes/favoriteVacationsRoute')(app);
 
 
 

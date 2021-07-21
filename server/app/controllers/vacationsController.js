@@ -1,6 +1,7 @@
 const db = require("../models");
 const Vacations = db.vacations;
 const User = db.user;
+// const FavouriteVacations = db.favoriteVacations;
 
 exports.getVacations = async (req, res) => {
     try {
@@ -16,65 +17,47 @@ exports.getVacations = async (req, res) => {
 exports.getVacationByVacationID = async (req, res) => {
     console.log(req.query);
     try {
-        await Vacations.findOne({
+        let VacationsById = await Vacations.findAll({
             where: {
-                vacationID: Number(req.query.vacationID)
-            }
-        }).then(vacationByID => {
-            res.status(200).send(vacationByID);
-        })
+                vacationID: req.query.vacationId
+            },
+            raw: true
+        });
+
+        let users = await User.findAll({
+            raw: true
+        });
+
+        // let obj = [];
+        // for (let item in favorites) {
+        //     if (favorites[item].id === VacationsById[0].id) {
+        //         obj.push(favorites[item]);
+        //     }
+        // }
+
+        console.log(users);
+        // VacationsById[0]['favorites'] = obj;
+        // console.log(VacationsById);
+        // res.status(200).send(VacationsById);
     } catch (e) {
+        console.log(e);
         res.status(404).send(e);
     }
 };
 
-exports.getVacationByUserID = async (res, req) => {
+exports.updateVacationFollowers = async (req, res) => {
+    console.log(req.body);
+
     try {
-        await Vacations.findAll({
-            include: {
-                model: User
-            }
+        await Vacations.update(
+            {followers: req.body.followers},
+            {where: {vacationId: req.body.id}}
+        ).then(result => {
+            res.status(200).send(result);
         })
     } catch (e) {
-        res.status(404).send(e);
+        console.log(e);
+        res.status(500).send(e);
 
     }
-};
-
-// exports.getVacationsByVacationID = async (req, res) => {
-//     try {
-//         let stmt = `SELECT * FROM vacations where vacationID = ${req.query.id}`;
-//         console.log(stmt)
-//         let vacations = await con.execute(stmt);
-//         res.send(vacations[0]);
-//     } catch (err) {
-//         res.send(err)
-//     }
-// }
-//
-// exports.getVacationsByUserID = async (req, res) => {
-//     try {
-//         let stmt = `select * from vacations v
-//             inner join favourite_vacations fv on v.vacationID = fv.vacationID
-//             inner join users u on fv.userID = u.userID
-//             where u.userID = ${req.query.id}`;
-//         console.log(stmt);
-//         let vacationsByUserID = await con.execute(stmt);
-//         res.send(vacationsByUserID[0]);
-//     } catch (err) {
-//         res.send(err)
-//     }
-// }
-//
-// exports.addVacation = async (req, res) => {
-//     try {
-//         let stmt = `insert into vacations (description, destination, src, start_date, end_date, price, followers) VALUES ('${req.body.description}','${req.body.destination}','${req.body.src}',${req.body.start_date},${req.body.end_date}, ${req.body.price}, ${req.body.followers});`
-//         console.log(stmt);
-//         let result = await con.execute(stmt);
-//
-//         res.send(result[0]);
-//     } catch (e) {
-//         res.send(e);
-//
-//     }
-// }
+}

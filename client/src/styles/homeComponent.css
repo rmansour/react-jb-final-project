@@ -5,18 +5,28 @@
   flex-direction: column;
 }
 .home__component--search-div {
-  width: 100%;
-  margin-top: 1rem;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1.2rem;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
+
 .home__component--search-div--form {
-  margin: 0 1rem 0 1rem;
+    margin: 0 1rem 0 1rem;
 }
+
 .home__component--search-div--form input {
-  margin-right: 10px;
-  border-radius: 20px;
+    margin-right: 10px;
+    border-radius: 20px;
 }
-.home__component--cards-div {
-  overflow-y: auto;
+
+@media screen and (min-width: 1490px) {
+    .home__component--search-div {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        background-color: white !important;
+    }
 }
 
 /*# sourceMappingURL=homeComponent.css.map */

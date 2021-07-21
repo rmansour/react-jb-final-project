@@ -47,6 +47,9 @@ db.user.belongsToMany(db.role, {
 });
 
 db.favoriteVacations.belongsTo(db.vacations);
+db.favoriteVacations.belongsTo(db.user);
+db.user.hasMany(db.favoriteVacations);
+// db.user.hasMany(db.vacations);
 
 db.ROLES = ["user", "admin"];
 

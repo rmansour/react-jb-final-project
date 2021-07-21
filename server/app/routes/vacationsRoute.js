@@ -10,4 +10,8 @@ module.exports = function(app) {
     });
 
     app.get("/vacations/getVacations", vacationsController.getVacations);
+    app.get("/vacations/getVacationByVacationID", vacationsController.getVacationByVacationID);
+
+    app.post("/vacations/updateVacationFollowers", vacationsController.updateVacationFollowers);
+
 };

@@ -1,0 +1,19 @@
+.modal__component--form-vacation {
+  &--dates {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+
+    & label {
+      width: 100%;
+    }
+
+    & input {
+      width: 100%;
+    }
+
+    &-start-date {
+
+    }
+  }
+}

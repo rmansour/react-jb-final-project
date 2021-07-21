@@ -12,8 +12,7 @@ import Login from './components/login';
 import Register from "./components/register";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardAdmin from "./components/board-admin.component";
+import BoardAdmin from "./components/adminBoard/board-admin.component";
 
 // actions, helpers and history
 import {logout} from "./actions/auth";
@@ -30,7 +29,6 @@ class App extends Component {
             currentUser: undefined
         };
 
-
         history.listen((location) => {
             props.dispatch(clearMessage()); // clear message when changing location
         });
@@ -41,7 +39,6 @@ class App extends Component {
 
         if (user) {
             this.setState({
-                // currentUser: user,
                 currentUser: user,
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
             });
@@ -54,13 +51,15 @@ class App extends Component {
 
     render() {
         const {currentUser, showAdminBoard} = this.state;
-
         return (
             <Router history={history}>
                 <>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <div className="container-fluid">
-                            <Link to={"/"} className="navbar-brand">
+                            <Link to={{
+                                pathname: "/",
+                            }}
+                                  className="navbar-brand">
                                 Travel Agency
                             </Link>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -75,14 +74,6 @@ class App extends Component {
                                         <li className="nav-item">
                                             <Link to={"/admin"} className="nav-link">
                                                 Admin Board
-                                            </Link>
-                                        </li>
-                                    )}
-
-                                    {currentUser && (
-                                        <li className="nav-item">
-                                            <Link to={"/user"} className="nav-link">
-                                                Favourites
                                             </Link>
                                         </li>
                                     )}
@@ -126,9 +117,7 @@ class App extends Component {
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/profile" component={Profile}/>
-                            <Route path="/user" component={BoardUser}/>
                             <Route path="/admin" component={BoardAdmin}/>
-                            {/*<Route path="/vacation-info/:id" component={VacationCard}></Route>*/}
                         </Switch>
                     </div>
                 </>

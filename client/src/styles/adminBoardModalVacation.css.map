@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "adminBoardModalVacation.scss"
+  ],
+  "names": [],
+  "mappings": "AACE;EACE;EACA;EACA;;AAEA;EACE;;AAGF;EACE",
+  "file": "adminBoardModalVacation.css"
+}

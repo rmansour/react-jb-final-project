@@ -1,0 +1,68 @@
+.admin__page {
+  /* Works on Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 white;
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 20px;
+    //border: 3px solid #ececec;
+  }
+
+  .read-more-link {
+    color: black;
+    text-decoration: none;
+    transition: color .15s ease-in-out;
+
+    &:hover {
+      color: #2a52be;
+    }
+  }
+
+  &--header-container {
+    margin-top: 1.5rem;
+  }
+
+  &--content {
+    &--vacations-table {
+      height: 100%;
+      width: 100%;
+      //table-layout: fixed;
+
+      &-row {
+        //height: 20px!important;
+        //height: 30px;
+        overflow-y: auto;
+
+        &--description {
+          & > a {
+            & > div {
+              //text-align: ;
+              padding-right: .5rem;
+            }
+          }
+        }
+
+        &--action-btns {
+          display: flex;
+          justify-content: space-around;
+
+          &--edit-btn {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
