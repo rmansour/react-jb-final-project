@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import '../../styles/adminPage.css';
 import AdminBoardEditVacation from "./adminBoardEditVacation";
 
-function AdminBoardTableRow({vacation, index}) {
+export default function AdminBoardTableRow({vacation, index}) {
     const [MAX_LENGTH] = useState(100);
     const [readMore, setReadMore] = useState(false);
 
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     const expanded = (text) => {
         if (readMore === true)
@@ -58,5 +58,3 @@ function AdminBoardTableRow({vacation, index}) {
         </>
     );
 }
-
-export default AdminBoardTableRow;

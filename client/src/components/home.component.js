@@ -136,16 +136,17 @@ class Home extends Component {
                 <div className="row home__component--cards-div">
                     {
                         this.state.filteredVacations.length === 0 ?
-                            this.state.vacations.map((vacation) => {
+                            this.state.vacations.map((vacation, index) => {
                                 return <VacationCard handleFollowers={this.handleFollowers}
-                                                     vacation={vacation} onSearchInput={this.onSearch}/>
+                                                     vacation={vacation} onSearchInput={this.onSearch}
+                                                     key={index}/>
                             })
                             :
-                            this.state.filteredVacations.map(vacation => {
+                            this.state.filteredVacations.map((vacation, index) => {
                                 return <VacationCard handleFollowers={this.handleFollowers}
                                                      index={vacation.id}
                                                      vacation={vacation}
-                                                     onSearchInput={this.onSearch}/>
+                                                     onSearchInput={this.onSearch} key={index}/>
                             })
                     }
                 </div>

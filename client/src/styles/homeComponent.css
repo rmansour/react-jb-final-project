@@ -11,11 +11,9 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
-
 .home__component--search-div--form {
     margin: 0 1rem 0 1rem;
 }
-
 .home__component--search-div--form input {
     margin-right: 10px;
     border-radius: 20px;

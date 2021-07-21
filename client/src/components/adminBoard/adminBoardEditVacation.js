@@ -10,32 +10,6 @@ function AdminBoardEditVacation(props) {
     const [endDate, setEndDate] = useState('');
     const [price, setPrice] = useState('');
 
-    //
-    // const submitObj ={
-    //     description: textAreaDescription,
-    //     start_date: '',
-    //     end_date: '',
-    //     price: ''
-    // };
-    //
-    // const updateObjToSubmit = (action, value) => {
-    //     value.preventDefault();
-    //     console.log(action, value.target.value);
-    //     let submitObj = {
-    //         description: textAreaDescription,
-    //         start_date: '',
-    //         end_date: '',
-    //         price: ''
-    //     };
-    //     if (action === 'start_date')
-    //         submitObj.start_date = value.target.value;
-    //     if (action === 'end_date')
-    //         submitObj.end_date = value.target.value;
-    //     if (action === 'price')
-    //         submitObj.price = value.target.value;
-    //     setObjToSubmit(submitObj)
-    // }
-    //
     const updatedValue = {
         start_date: startDate,
         end_date: endDate,
@@ -48,8 +22,6 @@ function AdminBoardEditVacation(props) {
     }
     const [objToSubmit, setObjToSubmit] = useState({});
     console.log(objToSubmit);
-
-    // console.log(submitObj);
 
 
     /**
@@ -78,14 +50,14 @@ function AdminBoardEditVacation(props) {
             </Modal.Header>
             <Modal.Body>
                 <h4>Edit vacation info</h4>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formVacationDestination">
+                <div>
+                    <Form.Group className="mb-3">
                         <Form.Control type="text" placeholder={props.vacation.destination} disabled={true}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formVacationDescription">
+                    <Form.Group className="mb-3">
                         <Form.Label>Vacation's Description:</Form.Label>
-                        <FloatingLabel controlId="floatingTextarea2" label="Description">
+                        <FloatingLabel label="Description">
                             <Form.Control
                                 as="textarea"
                                 style={{height: '180px', textAlign: 'justify', padding: '.8rem'}}
@@ -94,14 +66,14 @@ function AdminBoardEditVacation(props) {
                     </Form.Group>
 
                     <div className="modal__component--form-vacation--dates">
-                        <Form.Group className="mb-3" controlId="formVacationStartDate">
+                        <Form.Group className="mb-3">
                             <FormLabel>Start date:</FormLabel>
                             <Form.Control type="date" defaultValue={props.vacation.start_date}
                                           onChange={(e) => {
                                               setStartDate(e.target.value)
                                           }}/>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formVacationEndDate">
+                        <Form.Group className="mb-3">
                             <FormLabel>End date:</FormLabel>
                             <Form.Control type="date" placeholder={props.vacation.end_date}
                                           onChange={(e) => {
@@ -110,20 +82,20 @@ function AdminBoardEditVacation(props) {
                         </Form.Group>
                     </div>
 
-                    <Form.Group className="mb-3" controlId="formVacationPrice">
+                    <Form.Group className="mb-3">
                         <FormLabel>Update price:</FormLabel>
                         <Form.Control type="text" defaultValue={props.vacation.price}
                                       onChange={(e) => {
                                           setPrice(e.target.value)
                                       }}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formVacationFollowers">
+                    <Form.Group className="mb-3">
                         <FormLabel>Followers:</FormLabel>
                         <Form.Control type="text" placeholder={props.vacation.followers} disabled={true}/>
                     </Form.Group>
 
                     <Button type={"submit"} onClick={submit}>Submit</Button>
-                </Form>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
