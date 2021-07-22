@@ -19,6 +19,7 @@
     "react-focus-lock": "^2.5.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-tooltip": "^4.2.21",
     "react-validation": "^3.0.7",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",

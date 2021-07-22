@@ -59,6 +59,9 @@
   color: #0d6efd;
   border-color: #0d6efd;
 }
+:root .btn-check:focus + .btn-outline-info, :root .btn-outline-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
 
 .app__component {
   max-width: 1500px;

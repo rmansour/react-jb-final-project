@@ -1,107 +1,137 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import {Button, Form, FormLabel, Modal} from "react-bootstrap";
+import UserService from '../../services/user.service';
 import FloatingLabel from "react-bootstrap/Form";
 import '../../styles/adminBoardModalVacation.css';
 
-function AdminBoardEditVacation(props) {
+class AdminBoardEditVacation extends Component {
+    constructor(props) {
+        super(props);
 
-    const [textAreaDescription, setTextAreaDescription] = useState(props.vacation.description);
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [price, setPrice] = useState('');
+        this.updateVacations = this.updateVacations.bind(this);
+        this.setStates = this.setStates.bind(this);
+        this.submit = this.submit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
-    const updatedValue = {
-        start_date: startDate,
-        end_date: endDate,
-        price: price
-    };
-
-    const submit = (e) => {
-        e.preventDefault();
-        setObjToSubmit(updatedValue);
+        this.state = {
+            textAreaDescription: this.props.vacation.description,
+            vacationID: this.props.vacation.id,
+            startDate: this.props.vacation.start_date,
+            endDate: this.props.vacation.end_date,
+            price: this.props.vacation.price,
+            objToSubmit: {}
+        }
     }
-    const [objToSubmit, setObjToSubmit] = useState({});
-    console.log(objToSubmit);
+
+    setStates(action, values) {
+        switch (action) {
+            case 'start_date':
+                this.setState({startDate: values});
+                break;
+            case 'end_date':
+                this.setState({endDate: values});
+                break;
+            case 'price':
+                this.setState({price: values});
+                break;
+        }
+        this.setState((prevState) => ({
+            objToSubmit: {
+                ...prevState.objToSubmit,
+                id: this.state.vacationID,
+                start_date: this.state.startDate,
+                end_date: this.state.endDate,
+                price: this.state.price
+            }
+        }), () => {
+            console.log(this.state.objToSubmit);
+        });
+    }
+
+    handleChange = (e) => {
+        this.setState({textAreaDescription: e.target.value});
+    }
+
+    updateVacations = async () => {
+        console.log(this.state.objToSubmit);
+        await UserService.updateVacationAdmin(this.state.objToSubmit);
+    }
+
+    submit() {
+        console.log(this.state.objToSubmit);
+        this.updateVacations();
+    }
 
 
-    /**
-     *
-     * @param event
-     *
-     * Handle the description's textarea text changes
-     */
-    const handleChange = (event) => {
-        setTextAreaDescription(event.target.value);
-    };
-    // console.log(textAreaDescription);
+    render() {
+        return (
+            <>
+                <Modal
+                    {...this.props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    className="modal__component--form-vacation"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            {this.props.vacation.destination}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Edit vacation info</h4>
+                        <div>
+                            <Form.Group className="mb-3">
+                                <Form.Control type="text" placeholder={this.props.vacation.destination}
+                                              disabled={true}/>
+                            </Form.Group>
 
-    return (
-        <Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            className="modal__component--form-vacation"
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    {props.vacation.destination}
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <h4>Edit vacation info</h4>
-                <div>
-                    <Form.Group className="mb-3">
-                        <Form.Control type="text" placeholder={props.vacation.destination} disabled={true}/>
-                    </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Vacation's Description:</Form.Label>
+                                <FloatingLabel label="Description">
+                                    <Form.Control
+                                        as="textarea"
+                                        style={{height: '180px', textAlign: 'justify', padding: '.8rem'}}
+                                        value={this.state.textAreaDescription} onChange={this.handleChange}/>
+                                </FloatingLabel>
+                            </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Vacation's Description:</Form.Label>
-                        <FloatingLabel label="Description">
-                            <Form.Control
-                                as="textarea"
-                                style={{height: '180px', textAlign: 'justify', padding: '.8rem'}}
-                                value={textAreaDescription} onChange={handleChange}/>
-                        </FloatingLabel>
-                    </Form.Group>
+                            <div className="modal__component--form-vacation--dates">
+                                <Form.Group className="mb-3">
+                                    <FormLabel>Start date:</FormLabel>
+                                    <Form.Control type="date" defaultValue={this.state.startDate}
+                                                  onChange={(e) => this.setStates('start_date', e.target.value)}
+                                                  onBlur={(e) => this.setStates('start_date', e.target.value)}/>
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <FormLabel>End date:</FormLabel>
+                                    <Form.Control type="date" placeholder={this.state.endDate}
+                                                  onChange={(e) => this.setStates('end_date', e.target.value)}
+                                                  onBlur={(e) => this.setStates('end_date', e.target.value)}/>
+                                </Form.Group>
+                            </div>
 
-                    <div className="modal__component--form-vacation--dates">
-                        <Form.Group className="mb-3">
-                            <FormLabel>Start date:</FormLabel>
-                            <Form.Control type="date" defaultValue={props.vacation.start_date}
-                                          onChange={(e) => {
-                                              setStartDate(e.target.value)
-                                          }}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <FormLabel>End date:</FormLabel>
-                            <Form.Control type="date" placeholder={props.vacation.end_date}
-                                          onChange={(e) => {
-                                              setEndDate(e.target.value)
-                                          }}/>
-                        </Form.Group>
-                    </div>
+                            <Form.Group className="mb-3">
+                                <FormLabel>Update price:</FormLabel>
+                                <Form.Control type="text" defaultValue={this.state.price}
+                                              onChange={(e) => this.setStates('price', e.target.value)}
+                                              onBlur={(e) => this.setStates('price', e.target.value)}/>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <FormLabel>Followers:</FormLabel>
+                                <Form.Control type="text" placeholder={this.props.vacation.followers} disabled={true}/>
+                            </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <FormLabel>Update price:</FormLabel>
-                        <Form.Control type="text" defaultValue={props.vacation.price}
-                                      onChange={(e) => {
-                                          setPrice(e.target.value)
-                                      }}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <FormLabel>Followers:</FormLabel>
-                        <Form.Control type="text" placeholder={props.vacation.followers} disabled={true}/>
-                    </Form.Group>
-
-                    <Button type={"submit"} onClick={submit}>Submit</Button>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-            </Modal.Footer>
-        </Modal>
-    );
+                            <Button variant="outline-info" type={"submit"} onClick={this.submit}>Submit</Button>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="outline-info" onClick={this.props.onHide}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
+    }
 }
 
 export default AdminBoardEditVacation;

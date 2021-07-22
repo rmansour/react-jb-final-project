@@ -30,6 +30,10 @@ class UserService {
         return axios.post(API_URL_VACATIONS + '/updateVacationFollowers', obj);
     }
 
+    updateVacationAdmin(obj) {
+        return axios.post(API_URL_VACATIONS + '/updateVacationAdmin', obj);
+    }
+
     addVacationToUsersFavorites(obj) {
         console.log(obj)
         return axios.post(API_URL_FAVORITE_VACATIONS + '/addVacationToFavorites', obj);
@@ -37,6 +41,10 @@ class UserService {
 
     getFavouriteVacationsByUserID(userID) {
         return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserID?userID=' + userID);
+    }
+
+    deleteVacation(id) {
+        return axios.post(API_URL_VACATIONS + '/deleteVacation', id);
     }
 
 }

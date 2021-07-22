@@ -13,5 +13,7 @@ module.exports = function(app) {
     app.get("/vacations/getVacationByVacationID", vacationsController.getVacationByVacationID);
 
     app.post("/vacations/updateVacationFollowers", vacationsController.updateVacationFollowers);
+    app.post("/vacations/updateVacationAdmin", vacationsController.updateVacationAdmin);
+    app.post("/vacations/deleteVacation", vacationsController.deleteVacation);
 
 };

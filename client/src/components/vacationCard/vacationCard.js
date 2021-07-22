@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
 
-
-function VacationCard({vacation, handleFollowers}) {
+function VacationCard({vacation, favoriteVacations}) {
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
+
+    const iconRef = useRef();
 
     const expanded = (text) => {
         if (readMore === true)
@@ -13,6 +14,21 @@ function VacationCard({vacation, handleFollowers}) {
         else
             return <div>{text.substring(0, MAX_LENGTH)}...</div>;
     }
+
+    useEffect(() => {
+        // console.log(iconState);
+        checkIfVacationIsLiked();
+    });
+
+    const checkIfVacationIsLiked = () => {
+        favoriteVacations.map(item => {
+            if (item.vacationId === vacation.id) {
+                console.log("equal");
+                return iconRef.current.className = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
+            }
+        })
+    }
+
 
     const linkName = readMore ? 'Read Less << ' : 'Read More >> ';
 
@@ -29,7 +45,7 @@ function VacationCard({vacation, handleFollowers}) {
                             <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{vacation.followers}</p>
                             {/*fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon*/}
                             <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"
-                               onClick={(e) => handleFollowers(e, vacation)}/>
+                               ref={iconRef}/>
                         </div>
                         <section className="vacation__card--wrapper--body-dates">
                             <p>

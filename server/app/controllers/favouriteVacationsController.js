@@ -17,20 +17,16 @@ exports.getFavouriteVacations = async (req, res) => {
 
 exports.getFavouriteVacationsByUserID = async (req, res) => {
     try {
-        await FavoriteVacations.findAll({
-            attributes: {
-                exclude: ['createdAt', 'updatedAt']
-            },
+        let favorites = await FavoriteVacations.findAll({
             where: {
                 userID: req.query.userID
             }
-        }).then(result => {
-            console.log()
-            res.status(200).send(result);
-        })
+        });
+        console.log(favorites);
+        res.status(200).send(favorites);
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
 };
 
@@ -46,7 +42,7 @@ exports.getVacationsWithFollowedStatus = async (req, res) => {
         })
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
 };
 
