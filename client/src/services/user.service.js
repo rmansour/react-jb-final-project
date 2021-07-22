@@ -16,13 +16,12 @@ class UserService {
         return axios.get(API_URL + 'admin', {headers: authHeader()});
     }
 
-    getVacations() {
-        return axios.get(API_URL_VACATIONS + '/getVacations');
+    getFavouriteVacationsByUserIDsorted(userID) {
+        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userID=' + userID);
     }
 
-    getVacationByVacationID(vacationId) {
-        console.log(vacationId);
-        return axios.get(API_URL_VACATIONS + '/getVacationByVacationID?vacationId=' + vacationId);
+    getVacations() {
+        return axios.get(API_URL_VACATIONS + '/getVacations');
     }
 
     updateVacationFollowers(obj) {

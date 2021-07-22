@@ -11,6 +11,7 @@ module.exports = function (app) {
 
     app.get("/favouriteVacation/getFavouriteVacations", favouriteVacationsController.getFavouriteVacations);
     app.get("/favouriteVacation/getFavouriteVacationsByUserID", favouriteVacationsController.getFavouriteVacationsByUserID);
+    app.get("/favouriteVacation/getFavouriteVacationsByUserIDsorted", favouriteVacationsController.getFavouriteVacationsByUserIDsorted);
 
     app.post("/favouriteVacation/deleteVacationFromFavourites", favouriteVacationsController.deleteVacationFromFavourites);
     app.post("/favouriteVacation/addVacationToFavorites", favouriteVacationsController.addVacationToFavorites);

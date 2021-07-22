@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import '../../styles/adminPage.css';
 import UserService from '../../services/user.service';
-
 import AdminBoardEditVacation from "./adminBoardEditVacation";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
@@ -26,7 +25,8 @@ export default function AdminBoardTableRow({vacation, index}) {
     }
 
     const deleteVacation = async (id) => {
-        UserService.deleteVacation(id);
+        console.log(id);
+        await UserService.deleteVacation(id);
     }
 
     return (
@@ -68,7 +68,8 @@ export default function AdminBoardTableRow({vacation, index}) {
                             className="btn btn-outline-info admin__page--content--vacations-table-row--action-btns--edit-btn"
                             onClick={() => setModalShow(true)}>Edit
                         </button>
-                        <button className="btn btn-outline-danger" onClick={deleteVacation(vacation.id)}>Delete</button>
+                        <button className="btn btn-outline-danger" onClick={() => deleteVacation(vacation.id)}>Delete
+                        </button>
                     </div>
                 </td>
             </tr>

@@ -3,10 +3,12 @@ import '../../styles/adminPage.css';
 import UserService from "../../services/user.service";
 import {Table} from "react-bootstrap";
 import AdminBoardTableRow from "./adminBoardTableRow";
+import {connect} from "react-redux";
 
-export default class BoardAdminComponent extends Component {
+class BoardAdminComponent extends Component {
     constructor(props) {
         super(props);
+        // console.log(this.props)
 
         this.state = {
             content: "",
@@ -33,6 +35,7 @@ export default class BoardAdminComponent extends Component {
                 });
             }
         );
+
         UserService.getVacations().then(
             response => {
                 this.setState({
@@ -51,7 +54,7 @@ export default class BoardAdminComponent extends Component {
     }
 
     render() {
-        // console.log(this.state);
+        // console.log(this.props)
         return (
             <div className="admin__page">
                 <header className="jumbotron admin__page--header-container">
@@ -90,3 +93,13 @@ export default class BoardAdminComponent extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state) {
+    const {user} = state.auth;
+    return {
+        user,
+    };
+}
+
+export default connect(mapStateToProps)(BoardAdminComponent);

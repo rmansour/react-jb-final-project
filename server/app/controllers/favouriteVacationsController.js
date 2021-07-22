@@ -72,3 +72,31 @@ exports.deleteVacationFromFavourites = async (req, res) => {
     }
 };
 
+exports.getFavouriteVacationsByUserIDsorted = async (req, res) => {
+
+    console.log(req.query);
+
+    let reqB = req.query;
+
+    try {
+        let stmt = `with Q as (
+            select v.*,
+                   case
+                       when fv.vacationId is null then 1
+                       else 0
+                   end as sortOrder
+            from vacations v
+                     left outer join favorite_vacations fv on v.id = fv.vacationId and fv.userID = ${reqB.userID}
+            )
+            select * from Q
+            order by sortOrder`;
+
+        // console.log(stmt);
+        let result = await db.sequelize.query(stmt);
+        console.log(result);
+        res.status(200).send(result[0]);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}

@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 class Home extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.user);
+        // console.log(this.props.user);
 
         this.state = {
             currentUser: this.props.user,
@@ -23,7 +23,7 @@ class Home extends Component {
 
 
     componentDidMount() {
-        UserService.getVacations().then(
+        UserService.getFavouriteVacationsByUserIDsorted(this.props.user.id).then(
             response => {
                 this.setState({
                     vacations: response.data
@@ -40,9 +40,7 @@ class Home extends Component {
         );
 
         UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
-            this.setState({favoriteVacationsByUserId: response.data}, () => {
-                console.log(this.state.favoriteVacationsByUserId);
-            })
+            this.setState({favoriteVacationsByUserId: response.data});
         });
     }
 
@@ -99,12 +97,9 @@ class Home extends Component {
             </div>
         );
     }
-
 }
 
-function
-
-mapStateToProps(state) {
+function mapStateToProps(state) {
     const {user} = state.auth;
     return {
         user,

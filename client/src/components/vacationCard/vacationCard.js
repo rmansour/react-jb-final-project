@@ -3,6 +3,7 @@ import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
 
 function VacationCard({vacation, favoriteVacations}) {
+    // console.log(vacation);
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
 
@@ -22,8 +23,8 @@ function VacationCard({vacation, favoriteVacations}) {
 
     const checkIfVacationIsLiked = () => {
         favoriteVacations.map(item => {
-            if (item.vacationId === vacation.id) {
-                console.log("equal");
+            if (item.vacationId === vacation.id && item.followedVacation === 1) {
+                // console.log("equal");
                 return iconRef.current.className = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
             }
         })
