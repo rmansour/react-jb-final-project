@@ -12,7 +12,7 @@ class AdminAddVacation extends Component {
         this.setStates = this.setStates.bind(this);
         this.state = {
             destination: '',
-            src: 'a',
+            src: '',
             description: '',
             startDate: '',
             endDate: '',
