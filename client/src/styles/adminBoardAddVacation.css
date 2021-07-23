@@ -7,17 +7,15 @@
     font-family: inherit;
     overflow-y: auto;
 }
-
 .contact-page .contact-form {
     animation: 0.3s ease-in 0s 1 show-form;
     width: 54rem;
     height: 47rem;
     border-radius: 0.8rem;
-    padding: 0 1.6rem;
+    padding: 0 0.8rem;
     max-width: calc(100vw - 4rem);
     position: relative;
 }
-
 .contact-page .contact-form input {
     width: 100%;
     padding: 0.5rem;
@@ -31,18 +29,15 @@
     caret-color: black;
     color: black;
 }
-
 .contact-page .contact-form input:focus {
     border-bottom: 0.2rem solid #78788c;
 }
-
 .contact-page .contact-form p:before {
     content: attr(type);
     display: block;
     margin: 2.8rem 0 0;
     color: #0d6efd;
 }
-
 .contact-page .contact-form button {
     float: right;
     padding: 0.8rem 1.2rem;

@@ -67,7 +67,7 @@ class BoardAdminComponent extends Component {
     render() {
         // console.log(this.props)
         return (
-            <div className="admin__page">
+            <div className="admin__page container-fluid">
                 <header className="jumbotron admin__page--header-container">
                     <h3 className="admin__page--header-container-text">{this.state.content}</h3>
                     <div className="admin__page--add-vacation-btn">

@@ -94,14 +94,14 @@ class AdminAddVacation extends Component {
                                            onBlur={(e) => this.setStates('destination', e.target.value)}/>
                                 </p>
                                 {/*<p type="Destination image:">*/}
-                                <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Default file input example</Form.Label>
                                     <Form.Control type="file" onClick={(e) => this.setStates('src', e.target.value)}/>
                                 </Form.Group>
                                 {/*<input placeholder="Upload image..." />*/}
                                 {/*</p>*/}
                                 <p type="Description:">
-                                    <FloatingLabel controlId="floatingTextarea2" label="Description"
+                                    <FloatingLabel label="Description"
                                                    style={{marginTop: "1rem"}}>
                                         <Form.Control
                                             as="textarea"
