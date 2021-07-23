@@ -32,7 +32,7 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model")(sequelize, Sequelize);
 db.role = require("../models/role.model")(sequelize, Sequelize);
 db.vacations = require("../models/vacations.model")(sequelize, Sequelize);
-db.favoriteVacations = require("./favoriteVacations.model")(sequelize,Sequelize);
+db.favoriteVacations = require("./favoriteVacations.model")(sequelize,Sequelize, db);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
@@ -48,8 +48,8 @@ db.user.belongsToMany(db.role, {
 
 db.favoriteVacations.belongsTo(db.vacations);
 db.favoriteVacations.belongsTo(db.user);
-db.user.hasMany(db.favoriteVacations);
-// db.user.hasMany(db.vacations);
+// db.user.hasMany(db.favoriteVacations);
+// // db.user.hasMany(db.vacations);
 
 db.ROLES = ["user", "admin"];
 

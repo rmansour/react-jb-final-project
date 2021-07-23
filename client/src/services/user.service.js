@@ -16,12 +16,18 @@ class UserService {
         return axios.get(API_URL + 'admin', {headers: authHeader()});
     }
 
-    getFavouriteVacationsByUserIDsorted(userID) {
-        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userID=' + userID);
+    getFavouriteVacationsByUserIDsorted(userId) {
+        console.log('getFavouriteVacationsByUserIDsorted');
+        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userId=' + userId);
     }
 
     getVacations() {
         return axios.get(API_URL_VACATIONS + '/getVacations');
+    }
+
+    addVacation(newVacation) {
+        console.log(newVacation);
+        return axios.post(API_URL_VACATIONS + '/addVacation', newVacation);
     }
 
     updateVacationFollowers(obj) {
@@ -39,7 +45,7 @@ class UserService {
     }
 
     getFavouriteVacationsByUserID(userID) {
-        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserID?userID=' + userID);
+        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserID?userId=' + userID);
     }
 
     deleteVacation(id) {

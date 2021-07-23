@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         src: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         start_date: {
             type: Sequelize.DATE,
@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         followers: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         }
     });
     return Vacations;

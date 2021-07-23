@@ -28,11 +28,16 @@
   justify-content: flex-end;
 }
 :root .row {
-  margin: 0;
+    margin: 0;
 }
+
+:root .modal-body {
+    padding: 0;
+}
+
 :root body {
-  margin: 0 auto;
-  font-family: "JetBrains Mono", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin: 0 auto;
+    font-family: "JetBrains Mono", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 :root * {
   scrollbar-width: thin;

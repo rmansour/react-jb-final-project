@@ -19,12 +19,13 @@ class Home extends Component {
         };
         this.updateVacationFollowers = this.updateVacationFollowers.bind(this);
         this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
+        this.getVacations = this.getVacations.bind(this);
     }
 
-
-    componentDidMount() {
-        UserService.getFavouriteVacationsByUserIDsorted(this.props.user.id).then(
+    getVacations = async () => {
+        await UserService.getFavouriteVacationsByUserIDsorted(this.props.user.id).then(
             response => {
+                console.log(response.data);
                 this.setState({
                     vacations: response.data
                 });
@@ -38,10 +39,15 @@ class Home extends Component {
                 });
             }
         );
+    }
 
-        UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
-            this.setState({favoriteVacationsByUserId: response.data});
-        });
+    componentDidMount() {
+        this.getVacations().then(() => {
+            UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
+                console.log('starting to fetch favorites', this.state.currentUser.id);
+                this.setState({favoriteVacationsByUserId: response.data});
+            });
+        })
     }
 
     onSearch = (e) => {
@@ -59,13 +65,9 @@ class Home extends Component {
     }
 
 
-    // if (vacation)
-    //     return vacation.target.className = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
-    // else
-    //     return vacation.target.className = 'fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
-
-
     render() {
+        console.log(this.state.favoriteVacationsByUserId);
+        // console.log(this.props.user.id);
         return (
             <div className="home__component">
                 <div className="home__component--search-div bg-light">
@@ -79,18 +81,17 @@ class Home extends Component {
                     {
                         this.state.filteredVacations.length === 0 ?
                             this.state.vacations.map((vacation, index) => {
-                                return <VacationCard handleFollowers={this.handleFollowers}
-                                                     vacation={vacation} onSearchInput={this.onSearch}
-                                                     favoriteVacations={this.state.favoriteVacationsByUserId}
-                                                     key={index}/>
+                                return <VacationCard
+                                    vacation={vacation}
+                                    onSearchInput={this.onSearch}
+                                    key={index}/>
                             })
                             :
                             this.state.filteredVacations.map((vacation, index) => {
-                                return <VacationCard handleFollowers={this.handleFollowers}
-                                                     index={vacation.id}
-                                                     vacation={vacation}
-                                                     favoriteVacations={this.state.favoriteVacationsByUserId}
-                                                     onSearchInput={this.onSearch} key={index}/>
+                                return <VacationCard
+                                    index={vacation.id}
+                                    vacation={vacation}
+                                    onSearchInput={this.onSearch} key={index}/>
                             })
                     }
                 </div>

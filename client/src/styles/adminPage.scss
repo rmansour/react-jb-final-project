@@ -32,9 +32,13 @@
 
   &--header-container {
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   &--content {
+    margin-top: 1.4rem;
+
     &--vacations-table {
       height: 100%;
       width: 100%;

@@ -43,6 +43,7 @@ function initial() {
 
 }
 //{force:true}
+//{alter:true}
 db.sequelize.sync().then(() => {
     console.log('Drop and Resync Db');
     // initial();

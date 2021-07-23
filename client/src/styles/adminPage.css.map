@@ -1,10 +1,1 @@
-{
-  "version": 3,
-  "sourceRoot": "",
-  "sources": [
-    "adminPage.scss"
-  ],
-  "names": [],
-  "mappings": "AAAA;AACE;AAMA;;AALA;EACE;EACA;;AAIF;EACE;;AAGF;EACE;;AAGF;EACE;EACA;;AAIF;EACE;EACA;EACA;;AAEA;EACE;;AAIJ;EACE;;AAIA;EACE;EACA;;AAGA;EAGE;;AAII;EAEE;;AAKN;EACE;EACA;;AAEA;EACE",
-  "file": "adminPage.css"
-}
+{"version":3,"sourceRoot":"","sources":["adminPage.scss"],"names":[],"mappings":"AAAA;AACE;AAMA;;AALA;EACE;EACA;;AAIF;EACE;;AAGF;EACE;;AAGF;EACE;EACA;;AAIF;EACE;EACA;EACA;;AAEA;EACE;;AAIJ;EACE;EACA;EACA;;AAGF;EACE;;AAEA;EACE;EACA;;AAGA;EAGE;;AAII;EAEE;;AAKN;EACE;EACA;;AAEA;EACE","file":"adminPage.css"}

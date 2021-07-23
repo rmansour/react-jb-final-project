@@ -8,43 +8,25 @@ exports.getVacations = async (req, res) => {
         await Vacations.findAll().then(vacations => {
             // console.log(vacations);
             res.status(200).send(vacations);
-        })
+        });
     } catch (e) {
         res.status(404).send(e);
     }
 };
 
-exports.getVacationByVacationID = async (req, res) => {
-    console.log(req.query);
+exports.addVacation = async (req, res) => {
+    let reqB = req.body;
+    console.log(reqB);
+
     try {
-        let VacationsById = await Vacations.findAll({
-            where: {
-                vacationID: req.query.vacationId
-            },
-            raw: true
+        await Vacations.create(reqB).then(result => {
+            res.status(200).send(result);
         });
-
-        let users = await User.findAll({
-            raw: true
-        });
-
-        // let obj = [];
-        // for (let item in favorites) {
-        //     if (favorites[item].id === VacationsById[0].id) {
-        //         obj.push(favorites[item]);
-        //     }
-        // }
-
-        console.log(users);
-        // VacationsById[0]['favorites'] = obj;
-        // console.log(VacationsById);
-        // res.status(200).send(VacationsById);
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
+        res.status(500).send(200);
     }
-};
-
+}
 exports.updateVacationFollowers = async (req, res) => {
     console.log(req.body);
 
@@ -54,7 +36,7 @@ exports.updateVacationFollowers = async (req, res) => {
             {where: {vacationId: req.body.id}}
         ).then(result => {
             res.status(200).send(result);
-        })
+        });
     } catch (e) {
         console.log(e);
         res.status(500).send(e);
@@ -77,7 +59,7 @@ exports.updateVacationAdmin = async (req, res) => {
     try {
         await Vacations.update(values, whereCondition, options).then(result => {
             res.status(200).send(result);
-        })
+        });
     } catch (e) {
         console.log(e);
         res.status(500).send(e);
@@ -91,9 +73,9 @@ exports.deleteVacation = async (req, res) => {
     let reqBody = req.body;
 
     try {
-        await Vacations.destroy({where: {vacationId: reqBody.id}}).then(result => {
+        await Vacations.destroy({where: {id: reqBody.id}}).then(result => {
             res.status(200).send(JSON.stringify(result));
-        })
+        });
     } catch (e) {
         console.log(e);
         res.status(500).send(JSON.stringify(e));

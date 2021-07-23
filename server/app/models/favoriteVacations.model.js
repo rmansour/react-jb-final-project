@@ -1,22 +1,10 @@
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize, db) => {
     const favoriteVacations = sequelize.define("favorite_vacations", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        vacationId: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        userID: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        followedVacation: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        }
     });
     return favoriteVacations;
 }

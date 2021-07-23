@@ -1,7 +1,6 @@
 const db = require("../models");
 const FavoriteVacations = db.favoriteVacations;
 const Vacations = db.vacations;
-const User = db.user;
 
 exports.getFavouriteVacations = async (req, res) => {
     try {
@@ -16,10 +15,11 @@ exports.getFavouriteVacations = async (req, res) => {
 };
 
 exports.getFavouriteVacationsByUserID = async (req, res) => {
+    console.log(req.query);
     try {
         let favorites = await FavoriteVacations.findAll({
             where: {
-                userID: req.query.userID
+                userId: req.query.userId
             }
         });
         console.log(favorites);
@@ -86,14 +86,14 @@ exports.getFavouriteVacationsByUserIDsorted = async (req, res) => {
                        else 0
                    end as sortOrder
             from vacations v
-                     left outer join favorite_vacations fv on v.id = fv.vacationId and fv.userID = ${reqB.userID}
-            )
-            select * from Q
-            order by sortOrder`;
+                  left outer join favorite_vacations fv on v.id = fv.vacationId and fv.userId = ${reqB.userId}
+        )
 
-        // console.log(stmt);
+        select * from Q
+        order by sortOrder, id;`;
+
         let result = await db.sequelize.query(stmt);
-        console.log(result);
+        // console.log(result);
         res.status(200).send(result[0]);
     } catch (e) {
         console.log(e);

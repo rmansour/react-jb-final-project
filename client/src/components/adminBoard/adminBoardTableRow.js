@@ -11,7 +11,7 @@ const renderTooltip = (props) => (
     </Tooltip>
 );
 
-export default function AdminBoardTableRow({vacation, index}) {
+export default function AdminBoardTableRow({vacation, index, vacations, updateVacations}) {
     const [MAX_LENGTH] = useState(100);
     const [readMore, setReadMore] = useState(false);
 
@@ -26,7 +26,8 @@ export default function AdminBoardTableRow({vacation, index}) {
 
     const deleteVacation = async (id) => {
         console.log(id);
-        await UserService.deleteVacation(id);
+        await UserService.deleteVacation({id: id});
+        await updateVacations();
     }
 
     return (
@@ -75,9 +76,11 @@ export default function AdminBoardTableRow({vacation, index}) {
             </tr>
 
             <AdminBoardEditVacation
+                updateVacations={updateVacations}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 vacation={vacation}
+                vacations={vacations}
             />
         </>
     );

@@ -12,6 +12,7 @@ class AdminBoardEditVacation extends Component {
         this.setStates = this.setStates.bind(this);
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.changeVacationsOnUpdate = this.changeVacationsOnUpdate.bind(this);
 
         this.state = {
             textAreaDescription: this.props.vacation.description,
@@ -19,7 +20,8 @@ class AdminBoardEditVacation extends Component {
             startDate: this.props.vacation.start_date,
             endDate: this.props.vacation.end_date,
             price: this.props.vacation.price,
-            objToSubmit: {}
+            objToSubmit: {},
+            content: ""
         }
     }
 
@@ -48,13 +50,22 @@ class AdminBoardEditVacation extends Component {
         });
     }
 
+    changeVacationsOnUpdate(arr) {
+        this.props.vacations = arr;
+        console.log(this.props.vacations);
+    }
+
     handleChange = (e) => {
         this.setState({textAreaDescription: e.target.value});
     }
 
     updateVacations = async () => {
         console.log(this.state.objToSubmit);
-        await UserService.updateVacationAdmin(this.state.objToSubmit);
+        await UserService.updateVacationAdmin(this.state.objToSubmit).then(() => {
+            alert("updated");
+            this.props.onHide();
+            this.props.updateVacations();
+        });
     }
 
     submit() {
@@ -83,7 +94,8 @@ class AdminBoardEditVacation extends Component {
                         <div>
                             <Form.Group className="mb-3">
                                 <Form.Control type="text" placeholder={this.props.vacation.destination}
-                                              disabled={true}/>
+                                              value={this.props.vacation.destination}
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3">

@@ -2,8 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
 
-function VacationCard({vacation, favoriteVacations}) {
-    // console.log(vacation);
+function VacationCard({vacation}) {
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
 
@@ -17,19 +16,13 @@ function VacationCard({vacation, favoriteVacations}) {
     }
 
     useEffect(() => {
-        // console.log(iconState);
-        checkIfVacationIsLiked();
-    });
+        checkLiked();
+    }, []);
 
-    const checkIfVacationIsLiked = () => {
-        favoriteVacations.map(item => {
-            if (item.vacationId === vacation.id && item.followedVacation === 1) {
-                // console.log("equal");
-                return iconRef.current.className = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
-            }
-        })
+    const checkLiked = () => {
+        if (vacation.sortOrder === 0)
+            iconRef.current.className = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
     }
-
 
     const linkName = readMore ? 'Read Less << ' : 'Read More >> ';
 
