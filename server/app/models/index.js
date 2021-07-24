@@ -29,6 +29,7 @@ db.sequelize = sequelize;
 /**
  * With `through`, `foreignKey`, `otherKey`, we’re gonna have a new table user_roles as connection between users and roles table via their primary key as foreign keys.
  */
+db.images = require("./image.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model")(sequelize, Sequelize);
 db.role = require("../models/role.model")(sequelize, Sequelize);
 db.vacations = require("../models/vacations.model")(sequelize, Sequelize);
