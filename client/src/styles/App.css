@@ -52,26 +52,39 @@
   background-color: #0d6efd;
 }
 :root .btn-outline-info:hover {
-  background-color: #0d6efd;
-  color: white;
+    background-color: #0d6efd;
+    color: white;
 }
+
 :root .btn-outline-info {
-  color: #0d6efd;
-  border-color: #0d6efd;
+    color: #0d6efd;
+    border-color: #0d6efd;
 }
+
 :root .btn-check:focus + .btn-outline-info, :root .btn-outline-info:focus {
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+:root .read-more-link {
+    color: #0d6efd;
+    text-decoration: none;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+:root .read-more-link:hover {
+    color: #2a52be;
 }
 
 .app__component {
-  max-width: 1500px;
-  height: 94vh;
-  margin: 0 auto;
+    max-width: 1500px;
+    height: 94vh;
+    margin: 0 auto;
 }
 
 label {
-  display: block;
-  margin-top: 10px;
+    display: block;
+    margin-top: 10px;
 }
 
 .card-container.card {

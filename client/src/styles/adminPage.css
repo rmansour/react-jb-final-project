@@ -16,14 +16,6 @@
   background-color: #d0d0d0;
   border-radius: 20px;
 }
-.admin__page .read-more-link {
-  color: black;
-  text-decoration: none;
-  transition: color 0.15s ease-in-out;
-}
-.admin__page .read-more-link:hover {
-  color: #2a52be;
-}
 .admin__page--header-container {
   margin-top: 1.5rem;
   display: flex;

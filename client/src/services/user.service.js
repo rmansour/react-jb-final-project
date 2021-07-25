@@ -17,7 +17,7 @@ class UserService {
     }
 
     getFavouriteVacationsByUserIDsorted(userId) {
-        console.log('getFavouriteVacationsByUserIDsorted');
+        // console.log('getFavouriteVacationsByUserIDsorted');
         return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userId=' + userId);
     }
 
@@ -26,12 +26,12 @@ class UserService {
     }
 
     addVacation(newVacation) {
-        console.log(newVacation);
+        // console.log(newVacation);
         return axios.post(API_URL_VACATIONS + '/addVacation', newVacation);
     }
 
     updateVacationFollowers(obj) {
-        console.log(obj);
+        // console.log(obj);
         return axios.post(API_URL_VACATIONS + '/updateVacationFollowers', obj);
     }
 
@@ -40,7 +40,7 @@ class UserService {
     }
 
     addVacationToUsersFavorites(obj) {
-        console.log(obj)
+        console.log('added: ', obj);
         return axios.post(API_URL_FAVORITE_VACATIONS + '/addVacationToFavorites', obj);
     }
 
@@ -50,6 +50,11 @@ class UserService {
 
     deleteVacation(id) {
         return axios.post(API_URL_VACATIONS + '/deleteVacation', id);
+    }
+
+    deleteVacationFromFavourites(vacationId) {
+        console.log('removed', vacationId);
+        return axios.post(API_URL_FAVORITE_VACATIONS + '/deleteVacationFromFavourites', vacationId);
     }
 
 }

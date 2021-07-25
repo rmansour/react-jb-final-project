@@ -36,6 +36,9 @@ class AdminBoardEditVacation extends Component {
             case 'price':
                 this.setState({price: values});
                 break;
+
+            default:
+                break;
         }
         this.setState((prevState) => ({
             objToSubmit: {

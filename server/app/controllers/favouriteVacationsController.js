@@ -5,7 +5,6 @@ const Vacations = db.vacations;
 exports.getFavouriteVacations = async (req, res) => {
     try {
         await FavoriteVacations.findAll().then(vacations => {
-            console.log()
             res.status(200).send(vacations);
         })
     } catch (e) {
@@ -15,14 +14,14 @@ exports.getFavouriteVacations = async (req, res) => {
 };
 
 exports.getFavouriteVacationsByUserID = async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     try {
         let favorites = await FavoriteVacations.findAll({
             where: {
                 userId: req.query.userId
             }
         });
-        console.log(favorites);
+        // console.log(favorites);
         res.status(200).send(favorites);
     } catch (e) {
         console.log(e);
@@ -47,7 +46,25 @@ exports.getVacationsWithFollowedStatus = async (req, res) => {
 };
 
 exports.addVacationToFavorites = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
+
+    // const addVacation = FavoriteVacations.create(req.body);
+    // console.log(addVacation.dataValues);
+    // const allFavouriteVacations = await FavoriteVacations.findAll({where: {userId: req.body.userId}}, {query: {raw: true}});
+    //
+    // console.log(req.body)
+    // let foundMatching = false;
+    // allFavouriteVacations.map(async item => {
+    //     if (item.dataValues.userId === req.body.userId && item.dataValues.vacationId === req.body.vacationId) {
+    //         console.log('found matching: ', item.dataValues);
+    //         res.status(500).send("Found matching vacations in the favorite_vacations table: ", item.dataValues).then(response => {
+    //             console.log(response)
+    //         });
+    //     } else
+    //         FavoriteVacations.create(req.body)
+    // })
+
+    // console.log(req.body);
 
     try {
         await FavoriteVacations.create(req.body).then(result => {
@@ -57,12 +74,13 @@ exports.addVacationToFavorites = async (req, res) => {
         console.log(e);
         res.status(404).send(e);
     }
+
 }
 
 exports.deleteVacationFromFavourites = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
-        await FavoriteVacations.destroy({where: {id: req.body.id}}).then(result => {
+        await FavoriteVacations.destroy({where: {vacationId: req.body.vacationId}}).then(result => {
             res.status(200).send(JSON.stringify(result));
         })
     } catch (e) {
@@ -74,7 +92,7 @@ exports.deleteVacationFromFavourites = async (req, res) => {
 
 exports.getFavouriteVacationsByUserIDsorted = async (req, res) => {
 
-    console.log(req.query);
+    // console.log(req.query);
 
     let reqB = req.query;
 

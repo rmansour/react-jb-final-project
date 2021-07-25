@@ -1,7 +1,5 @@
 const db = require("../models");
 const Vacations = db.vacations;
-const User = db.user;
-// const FavouriteVacations = db.favoriteVacations;
 
 exports.getVacations = async (req, res) => {
     try {
@@ -16,7 +14,7 @@ exports.getVacations = async (req, res) => {
 
 exports.addVacation = async (req, res) => {
     let reqB = req.body;
-    console.log(reqB);
+    // console.log(reqB);
 
     try {
         await Vacations.create(reqB).then(result => {
@@ -28,12 +26,12 @@ exports.addVacation = async (req, res) => {
     }
 }
 exports.updateVacationFollowers = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
         await Vacations.update(
             {followers: req.body.followers},
-            {where: {vacationId: req.body.id}}
+            {where: {id: req.body.id}}
         ).then(result => {
             res.status(200).send(result);
         });
@@ -45,7 +43,7 @@ exports.updateVacationFollowers = async (req, res) => {
 };
 
 exports.updateVacationAdmin = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     let values = {
         vacationId: req.body.id,
@@ -68,7 +66,7 @@ exports.updateVacationAdmin = async (req, res) => {
 };
 
 exports.deleteVacation = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     let reqBody = req.body;
 

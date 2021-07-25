@@ -7,27 +7,28 @@ import {connect} from "react-redux";
 class Home extends Component {
     constructor(props) {
         super(props);
-        // console.log(this.props.user);
 
         this.state = {
             currentUser: this.props.user,
             vacations: [],
             filteredVacations: [],
             searchInput: '',
-            followersObj: {},
             favoriteVacationsByUserId: [],
         };
-        this.updateVacationFollowers = this.updateVacationFollowers.bind(this);
         this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
         this.getVacations = this.getVacations.bind(this);
+        this.handleFollowedVacation = this.handleFollowedVacation.bind(this);
     }
 
     getVacations = async () => {
         await UserService.getFavouriteVacationsByUserIDsorted(this.props.user.id).then(
             response => {
-                console.log(response.data);
                 this.setState({
                     vacations: response.data
+                }, () => {
+                    UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
+                        this.setState({favoriteVacationsByUserId: response.data});
+                    })
                 });
             },
             error => {
@@ -42,12 +43,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getVacations().then(() => {
-            UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
-                console.log('starting to fetch favorites', this.state.currentUser.id);
-                this.setState({favoriteVacationsByUserId: response.data});
-            });
-        })
+        this.getVacations();
     }
 
     onSearch = (e) => {
@@ -60,14 +56,31 @@ class Home extends Component {
         await UserService.addVacationToUsersFavorites(obj);
     }
 
-    async updateVacationFollowers() {
-        await UserService.updateVacationFollowers(this.state.objToSubmit);
+
+    handleFollowedVacation = async (e, vacation, iconRef, likedBool) => {
+        let followersObj = {
+            followers: vacation.followers,
+            id: vacation.id
+        }
+        if (likedBool === 0) {
+            await UserService.addVacationToUsersFavorites({vacationId: vacation.id, userId: this.state.currentUser.id});
+            followersObj.followers += 1;
+            await UserService.updateVacationFollowers(followersObj);
+            await this.getVacations();
+        }
+
+        if (likedBool === 1) {
+            await UserService.deleteVacationFromFavourites({
+                vacationId: vacation.id,
+                userId: this.state.currentUser.id
+            });
+            followersObj.followers -= 1;
+            await UserService.updateVacationFollowers(followersObj);
+            await this.getVacations();
+        }
     }
 
-
     render() {
-        console.log(this.state.favoriteVacationsByUserId);
-        // console.log(this.props.user.id);
         return (
             <div className="home__component">
                 <div className="home__component--search-div bg-light">
@@ -82,14 +95,14 @@ class Home extends Component {
                         this.state.filteredVacations.length === 0 ?
                             this.state.vacations.map((vacation, index) => {
                                 return <VacationCard
+                                    handleFollowedVacation={this.handleFollowedVacation}
                                     vacation={vacation}
-                                    onSearchInput={this.onSearch}
                                     key={index}/>
                             })
                             :
                             this.state.filteredVacations.map((vacation, index) => {
                                 return <VacationCard
-                                    index={vacation.id}
+                                    handleFollowedVacation={this.handleFollowedVacation}
                                     vacation={vacation}
                                     onSearchInput={this.onSearch} key={index}/>
                             })
