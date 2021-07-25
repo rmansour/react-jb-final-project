@@ -10,9 +10,6 @@
 
   @import "navigation";
 
-  //p {
-  //    margin: 0;
-  //}
   .row {
     margin: 0;
   }
@@ -72,11 +69,18 @@
       color: #2a52be;
     }
   }
+
+  .modal-content {
+    border: none;
+  }
+
+  .modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .app__component {
-  max-width: 1500px;
-  height: 94vh;
   margin: 0 auto;
 }
 
@@ -97,9 +101,9 @@ label {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {

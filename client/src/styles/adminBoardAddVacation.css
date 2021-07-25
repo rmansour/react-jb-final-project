@@ -1,4 +1,4 @@
-.contact-page {
+.admin__page--modal--add-vacation-body {
     width: 100%;
     display: flex;
     flex-flow: row;
@@ -7,7 +7,8 @@
     font-family: inherit;
     overflow-y: auto;
 }
-.contact-page .contact-form {
+
+.admin__page--modal--add-vacation-body-div {
     animation: 0.3s ease-in 0s 1 show-form;
     width: 54rem;
     height: 47rem;
@@ -16,7 +17,8 @@
     max-width: calc(100vw - 4rem);
     position: relative;
 }
-.contact-page .contact-form input {
+
+.admin__page--modal--add-vacation-body-div input {
     width: 100%;
     padding: 0.5rem;
     background: none;
@@ -29,16 +31,19 @@
     caret-color: black;
     color: black;
 }
-.contact-page .contact-form input:focus {
+
+.admin__page--modal--add-vacation-body-div input:focus {
     border-bottom: 0.2rem solid #78788c;
 }
-.contact-page .contact-form p:before {
+
+.admin__page--modal--add-vacation-body-div p:before {
     content: attr(type);
     display: block;
     margin: 2.8rem 0 0;
     color: #0d6efd;
 }
-.contact-page .contact-form button {
+
+.admin__page--modal--add-vacation-body-div button {
     float: right;
     padding: 0.8rem 1.2rem;
     margin: 1.2rem 0 0;

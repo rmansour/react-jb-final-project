@@ -84,32 +84,23 @@ class AdminAddVacation extends Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className="contact-page">
-                            <div className="contact-form">
-                                {/*<div className="contact-form--header">*/}
-                                {/*</div>*/}
+                        <div className="admin__page--modal--add-vacation-body">
+                            <div className="admin__page--modal--add-vacation-body-div">
                                 <p type="Destination:">
                                     <input placeholder="Destination..."
                                            onChange={(e) => this.setStates('destination', e.target.value)}
                                            onBlur={(e) => this.setStates('destination', e.target.value)}/>
                                 </p>
-                                {/*<p type="Destination image:">*/}
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Default file input example</Form.Label>
-                                    <Form.Control type="file" onClick={(e) => this.setStates('src', e.target.value)}/>
-                                </Form.Group>
-                                {/*<input placeholder="Upload image..." />*/}
-                                {/*</p>*/}
+                                <p type="Image Upload:">
+                                    <input type="file" onClick={(e) => this.setStates('src', e.target.value)}/>
+                                </p>
                                 <p type="Description:">
-                                    <FloatingLabel label="Description"
-                                                   style={{marginTop: "1rem"}}>
-                                        <Form.Control
-                                            as="textarea"
-                                            placeholder="Description"
-                                            style={{height: '100px'}}
-                                            onChange={(e) => this.setStates('description', e.target.value)}
-                                            onBlur={(e) => this.setStates('description', e.target.value)}/>
-                                    </FloatingLabel>
+                                    <Form.Control
+                                        as="textarea"
+                                        placeholder="Description"
+                                        style={{height: '100px'}}
+                                        onChange={(e) => this.setStates('description', e.target.value)}
+                                        onBlur={(e) => this.setStates('description', e.target.value)}/>
                                 </p>
                                 <div style={{
                                     display: "flex",

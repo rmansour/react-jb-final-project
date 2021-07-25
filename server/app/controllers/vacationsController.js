@@ -47,6 +47,9 @@ exports.updateVacationAdmin = async (req, res) => {
 
     let values = {
         vacationId: req.body.id,
+        destination: req.body.destination,
+        src: req.body.src,
+        description: req.body.description,
         start_date: req.body.start_date,
         end_date: req.body.end_date,
         price: Number(req.body.price)

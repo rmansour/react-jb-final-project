@@ -1,13 +1,53 @@
-.modal__component--form-vacation--dates {
+.admin__page--modal--edit-vacation-body {
+    width: 100%;
     display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    overflow-y: auto;
 }
-.modal__component--form-vacation--dates label {
-    width: 100%;
+
+.admin__page--modal--edit-vacation-body-div {
+    animation: 0.3s ease-in 0s 1 show-form;
+    width: 54rem;
+    height: 47rem;
+    border-radius: 0.8rem;
+    padding: 0 0.8rem;
+    max-width: calc(100vw - 4rem);
+    position: relative;
 }
-.modal__component--form-vacation--dates input {
+
+.admin__page--modal--edit-vacation-body-div input {
     width: 100%;
+    padding: 0.5rem;
+    background: none;
+    outline: none;
+    resize: none;
+    border: 0;
+    font-family: inherit;
+    transition: all 0.3s;
+    border-bottom: 0.2rem solid #bebed2;
+    caret-color: black;
+    color: black;
+}
+
+.admin__page--modal--edit-vacation-body-div input:focus {
+    border-bottom: 0.2rem solid #78788c;
+}
+
+.admin__page--modal--edit-vacation-body-div p:before {
+    content: attr(type);
+    display: block;
+    margin: 2.8rem 0 0;
+    color: #0d6efd;
+}
+
+.admin__page--modal--edit-vacation-body-div button {
+    float: right;
+    padding: 0.8rem 1.2rem;
+    margin: 1.2rem 0 0;
+    cursor: pointer;
 }
 
 /*# sourceMappingURL=adminBoardModalVacation.css.map */

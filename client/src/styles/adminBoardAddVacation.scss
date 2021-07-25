@@ -1,4 +1,4 @@
-.contact-page {
+.admin__page--modal--add-vacation-body {
   width: 100%;
   display: flex;
   flex-flow: row;
@@ -7,7 +7,7 @@
   font-family: inherit;
   overflow-y: auto;
 
-  & .contact-form {
+  &-div {
     animation: .3s ease-in 0s 1 show-form;
     width: 54rem;
     height: 47rem;
@@ -28,7 +28,6 @@
       border-bottom: .2rem solid #bebed2;
       caret-color: black;
       color: black;
-      //font-size: 1.4rem;
 
       &:focus {
         border-bottom: .2rem solid #78788c;
@@ -39,7 +38,6 @@
       content: attr(type);
       display: block;
       margin: 2.8rem 0 0;
-      //font-size: 1.6rem;
       color: #0d6efd;
     }
 
@@ -47,14 +45,7 @@
       float: right;
       padding: .8rem 1.2rem;
       margin: 1.2rem 0 0;
-      //color: white;
       cursor: pointer;
-      //transition: all .3s;
-      //
-      //&:hover {
-      //  background: #20686c;
-      //  color: #fff;
-      //}
     }
   }
 }
