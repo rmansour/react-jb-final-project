@@ -25,7 +25,6 @@ export default function AdminBoardTableRow({vacation, index, vacations, updateVa
     }
 
     const deleteVacation = async (id) => {
-        console.log(id);
         await UserService.deleteVacation({id: id});
         await updateVacations();
     }
@@ -36,15 +35,11 @@ export default function AdminBoardTableRow({vacation, index, vacations, updateVa
                 <th scope="row">{vacation.id}</th>
                 <td>{vacation.destination}</td>
 
-
                 <td className="admin__page--content--vacations-table-row--description">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a className="read-more-link" onClick={() => {
                         setReadMore(!readMore)
                     }}>
-                        {/*<p>{linkName}</p>*/}
-
-                        {/*<ReactTooltip place="top" type="dark" effect="solid" data-for="description"/>*/}
                         <OverlayTrigger placement="top"
                                         delay={{show: 250, hide: 250}}
                                         overlay={renderTooltip} defaultShow={false}>
