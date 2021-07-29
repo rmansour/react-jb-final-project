@@ -1,25 +1,28 @@
 import React, {Component} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import FloatingLabel from "react-bootstrap/Form";
 import UserService from '../../services/user.service';
-
 import '../../styles/adminBoardAddVacation.css';
 
 class AdminAddVacation extends Component {
+    selectedFile;
+    fd = new FormData();
+
     constructor(props) {
         super(props);
 
         this.setStates = this.setStates.bind(this);
+        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+        this.fileUploadHandler = this.fileUploadHandler.bind(this);
+
         this.state = {
             destination: '',
-            src: '',
             description: '',
             startDate: '',
             endDate: '',
-            followers: 0,
             price: 0,
             objToSubmit: {}
         }
+
     }
 
     setStates = (action, values) => {
@@ -42,34 +45,45 @@ class AdminAddVacation extends Component {
             default:
                 break;
         }
-
-        this.setState((prevState) => ({
-            objToSubmit: {
-                ...prevState.objToSubmit,
-                destination: this.state.destination,
-                src: this.state.src,
-                description: this.state.description,
-                start_date: this.state.startDate,
-                end_date: this.state.endDate,
-                followers: this.state.followers,
-                price: this.state.price
-            }
-        }), () => {
-            console.log(this.state.objToSubmit);
-        });
     };
 
     addVacation = () => {
         // e.preventDefault();
+        if (this.selectedFile)
+            this.fileUploadHandler();
+
         console.log(this.state.objToSubmit);
-        UserService.addVacation(this.state.objToSubmit).then(() => {
+        UserService.upsertVacation(this.fd).then(() => {
             alert("added");
             this.props.onHide();
             this.props.updateVacations();
         });
     }
 
+    fileSelectedHandler = event => {
+        this.selectedFile = event.target.files[0];
+    }
+
+    fileUploadHandler = async () => {
+        console.log(this.selectedFile);
+
+        this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
+        this.fd.append('destination', this.state.destination);
+        this.fd.append('description', this.state.description);
+        this.fd.append('price', this.state.price);
+        this.fd.append('start_date', this.state.startDate);
+        this.fd.append('end_date', this.state.endDate);
+
+        for (let formData of this.fd.entries()) {
+            console.log(formData);
+        }
+
+        // await UserService.upsertVacation(fd);
+    };
+
     render() {
+        // console.log(this.state.objToSubmit);
+
         return (
             <>
                 <Modal
@@ -92,7 +106,7 @@ class AdminAddVacation extends Component {
                                            onBlur={(e) => this.setStates('destination', e.target.value)}/>
                                 </p>
                                 <p type="Image Upload:">
-                                    <input type="file" onClick={(e) => this.setStates('src', e.target.value)}/>
+                                    <input type="file" onChange={(e) => this.fileSelectedHandler(e)}/>
                                 </p>
                                 <p type="Description:">
                                     <Form.Control

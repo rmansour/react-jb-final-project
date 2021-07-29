@@ -4,22 +4,26 @@ import UserService from '../../services/user.service';
 import '../../styles/adminBoardModalVacation.css';
 
 class AdminBoardEditVacation extends Component {
+    selectedFile;
+    fd = new FormData();
+
     constructor(props) {
         super(props);
 
         this.updateVacations = this.updateVacations.bind(this);
         this.setStates = this.setStates.bind(this);
         this.submit = this.submit.bind(this);
+        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+        this.fileUploadHandler = this.fileUploadHandler.bind(this);
+
 
         this.state = {
             textAreaDescription: this.props.vacation.description,
             vacationID: this.props.vacation.id,
             destination: this.props.vacation.destination,
-            src: this.props.vacation.src,
             startDate: this.props.vacation.start_date,
             endDate: this.props.vacation.end_date,
             price: this.props.vacation.price,
-            objToSubmit: {},
             content: ""
         }
     }
@@ -31,9 +35,6 @@ class AdminBoardEditVacation extends Component {
                 break;
             case 'description':
                 this.setState({textAreaDescription: values});
-                break;
-            case 'src':
-                this.setState({src: values});
                 break;
             case 'start_date':
                 this.setState({startDate: values});
@@ -48,25 +49,16 @@ class AdminBoardEditVacation extends Component {
             default:
                 break;
         }
-        this.setState((prevState) => ({
-            objToSubmit: {
-                ...prevState.objToSubmit,
-                id: this.state.vacationID,
-                destination: this.state.destination,
-                src: this.state.src,
-                description: this.state.textAreaDescription,
-                start_date: this.state.startDate,
-                end_date: this.state.endDate,
-                price: this.state.price
-            }
-        }), () => {
-            console.log(this.state.objToSubmit);
-        });
     }
 
     updateVacations = async () => {
-        console.log(this.state.objToSubmit);
-        await UserService.updateVacationAdmin(this.state.objToSubmit).then(() => {
+        if (this.selectedFile)
+            this.fileUploadHandler();
+
+        for (let formData of this.fd.entries()) {
+            console.log(formData);
+        }
+        await UserService.upsertVacation(this.fd).then(() => {
             alert("updated");
             this.props.onHide();
             this.props.updateVacations();
@@ -74,10 +66,31 @@ class AdminBoardEditVacation extends Component {
     }
 
     async submit() {
-        console.log(this.state.objToSubmit);
+
         await this.updateVacations();
     }
 
+    fileSelectedHandler = event => {
+        this.selectedFile = event.target.files[0];
+    }
+
+    fileUploadHandler = () => {
+        console.log(this.selectedFile);
+
+        this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
+        this.fd.append('vacationId', this.state.vacationID);
+        this.fd.append('destination', this.state.destination);
+        this.fd.append('description', this.state.textAreaDescription);
+        this.fd.append('price', this.state.price);
+        this.fd.append('start_date', this.state.startDate);
+        this.fd.append('end_date', this.state.endDate);
+
+        for (let formData of this.fd.entries()) {
+            console.log(formData);
+        }
+
+        // await UserService.upsertVacation(fd);
+    };
 
     render() {
         // console.log(this.state.objToSubmit);
@@ -106,7 +119,8 @@ class AdminBoardEditVacation extends Component {
                                 </p>
 
                                 <p type="Image Upload:">
-                                    <input type="file" onClick={(e) => this.setStates('src', e.target.value)}/>
+                                    <input type="file"
+                                           onChange={(e) => this.fileSelectedHandler(e)}/>
                                 </p>
 
                                 <p type="Description:">

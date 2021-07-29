@@ -1,4 +1,5 @@
 const db = require("../models");
+const fs = require("fs");
 const FavoriteVacations = db.favoriteVacations;
 const Vacations = db.vacations;
 
@@ -88,6 +89,21 @@ exports.getFavouriteVacationsByUserIDsorted = async (req, res) => {
         order by sortOrder, id;`;
 
         let result = await db.sequelize.query(stmt);
+
+        result.forEach((v,index) => {
+            console.log(v[index].destination);
+            let fileName = v[index].filename;
+            if (fileName !== undefined && fileName !== '' && fs.existsSync(fileName)) {
+                try {
+                    v[index].filename = fileName
+                } catch (err) {
+                    console.log("found error")
+                    console.error(err);
+                }
+            }
+        })
+
+        // console.log(result);
         res.status(200).send(result[0]);
     } catch (e) {
         console.log(e);

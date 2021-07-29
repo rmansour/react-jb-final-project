@@ -16,47 +16,54 @@ class UserService {
         return axios.get(API_URL + 'admin', {headers: authHeader()});
     }
 
-    getFavouriteVacationsByUserIDsorted(userId) {
+    async getFavouriteVacationsByUserIDsorted(userId) {
         // console.log('getFavouriteVacationsByUserIDsorted');
-        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userId=' + userId);
+        return await axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserIDsorted?userId=' + userId);
     }
 
-    getVacations() {
-        return axios.get(API_URL_VACATIONS + '/getVacations');
+    async getVacations() {
+        return await axios.get(API_URL_VACATIONS + '/getVacations');
     }
 
-    addVacation(newVacation) {
+    async addVacation(newVacation) {
         // console.log(newVacation);
-        return axios.post(API_URL_VACATIONS + '/addVacation', newVacation);
+        return await axios.post(API_URL_VACATIONS + '/addVacation', newVacation);
     }
 
-    updateVacationFollowers(obj) {
+    async updateVacationFollowers(obj) {
         // console.log(obj);
-        return axios.post(API_URL_VACATIONS + '/updateVacationFollowers', obj);
+        return await axios.post(API_URL_VACATIONS + '/updateVacationFollowers', obj);
     }
 
-    updateVacationAdmin(obj) {
-        return axios.post(API_URL_VACATIONS + '/updateVacationAdmin', obj);
+    async updateVacationAdmin(obj) {
+        return await axios.post(API_URL_VACATIONS + '/updateVacationAdmin', obj);
     }
 
-    addVacationToUsersFavorites(obj) {
+    async addVacationToUsersFavorites(obj) {
         console.log('added: ', obj);
-        return axios.post(API_URL_FAVORITE_VACATIONS + '/addVacationToFavorites', obj);
+        return await axios.post(API_URL_FAVORITE_VACATIONS + '/addVacationToFavorites', obj);
     }
 
-    getFavouriteVacationsByUserID(userID) {
-        return axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserID?userId=' + userID);
+    async getFavouriteVacationsByUserID(userID) {
+        return await axios.get(API_URL_FAVORITE_VACATIONS + '/getFavouriteVacationsByUserID?userId=' + userID);
     }
 
-    deleteVacation(id) {
-        return axios.post(API_URL_VACATIONS + '/deleteVacation', id);
+    async deleteVacation(id) {
+        return await axios.post(API_URL_VACATIONS + '/deleteVacation', id);
     }
 
-    deleteVacationFromFavourites(vacationId) {
+    async deleteVacationFromFavourites(vacationId) {
         console.log('removed', vacationId);
-        return axios.post(API_URL_FAVORITE_VACATIONS + '/deleteVacationFromFavourites', vacationId);
+        return await axios.post(API_URL_FAVORITE_VACATIONS + '/deleteVacationFromFavourites', vacationId);
     }
 
+    async upsertVacation(fd) {
+        return await axios.post(API_URL_VACATIONS + '/upsertVacation', fd);
+    }
+
+    async getImage(id) {
+        return await axios.get(API_URL_VACATIONS + '/getImage?id=' + id);
+    }
 }
 
 export default new UserService();

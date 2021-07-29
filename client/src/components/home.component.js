@@ -26,6 +26,7 @@ class Home extends Component {
                 this.setState({
                     vacations: response.data
                 }, () => {
+                    console.log(this.state.vacations);
                     UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
                         this.setState({favoriteVacationsByUserId: response.data});
                     })
@@ -83,12 +84,25 @@ class Home extends Component {
     render() {
         return (
             <div className="home__component">
-                <div className="home__component--search-div bg-light">
-                    <form className="home__component--search-div--form form my-2 my-lg-0">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                               aria-label="Search"
+                {/*<div className="home__component--search-div bg-light">*/}
+                {/*    <form className="home__component--search-div--form form my-2 my-lg-0">*/}
+                {/*        <input className="form-control mr-sm-2" type="search" placeholder="Search"*/}
+                {/*               aria-label="Search"*/}
+                {/*               onChange={(e) => this.onSearch(e)}/>*/}
+                {/*    </form>*/}
+                {/*</div>*/}
+                <div className="search-bar p-2 rounded rounded-pill shadow-sm">
+                    <div className="input-group">
+                        <input type="search" placeholder="What're you searching for?"
+                               aria-describedby="button-addon1"
+                               className="form-control border-0"
                                onChange={(e) => this.onSearch(e)}/>
-                    </form>
+                        <div className="input-group-append">
+                            <button id="button-addon1" type="submit"
+                                    className="btn btn-link text-primary"><i
+                                className="fa fa-search"/></button>
+                        </div>
+                    </div>
                 </div>
                 <div className="row home__component--cards-div">
                     {

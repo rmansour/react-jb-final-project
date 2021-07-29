@@ -1,4 +1,5 @@
-const favouriteVacationsController = require('../controllers/favouriteVacationsController');
+const favouriteVacationsController = require('../controllers/favouriteVacations.controller');
+
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -15,4 +16,6 @@ module.exports = function (app) {
 
     app.post("/favouriteVacation/deleteVacationFromFavourites", favouriteVacationsController.deleteVacationFromFavourites);
     app.post("/favouriteVacation/addVacationToFavorites", favouriteVacationsController.addVacationToFavorites);
+
+
 };

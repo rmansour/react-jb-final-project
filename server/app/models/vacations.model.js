@@ -7,16 +7,20 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         description: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(2000),
             allowNull: false,
         },
         destination: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        src: {
+        type: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false,
+        },
+        filename: {
+            type: Sequelize.STRING,
+            allowNull: false,
         },
         start_date: {
             type: Sequelize.DATE,

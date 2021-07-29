@@ -79,6 +79,9 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+:root .form-control:focus {
+  box-shadow: none;
+}
 
 .app__component {
   margin: 0 auto;

@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import '../../styles/vacationCard.scss';
+
 import dateFormat from 'dateformat';
 
 function VacationCard({vacation, handleFollowedVacation}) {
@@ -7,6 +8,7 @@ function VacationCard({vacation, handleFollowedVacation}) {
     const [readMore, setReadMore] = useState(false);
     const [liked, setLiked] = useState(vacation.sortOrder);
     const linkName = readMore ? 'Read Less << ' : 'Read More >> ';
+    const [image, setImage] = useState(vacation.filename);
 
     const iconRef = useRef();
 
@@ -52,12 +54,15 @@ function VacationCard({vacation, handleFollowedVacation}) {
         setLiked(Number(!vacation.sortOrder));
     }
 
+    useEffect(() => {
+        setImage(vacation.filename)
+    }, [vacation.filename]);
 
     return (
         <div className="vacation__card" key={vacation.id}>
             <div className="vacation__card--wrapper">
                 <div className="vacation__card--wrapper--destination-pic">
-                    <img src={vacation.src} alt="destination-pic"/>
+                    <img src={`http://localhost:8080/${image}`} alt="destination-pic"/>
                 </div>
                 <div className="vacation__card--wrapper--body">
                     <header className="vacation__card--wrapper--body-header">

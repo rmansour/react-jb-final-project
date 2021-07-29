@@ -46,17 +46,16 @@ function initial() {
 //{force:true}
 //{alter:true}
 db.sequelize.sync().then(() => {
-    console.log('Drop and Resync Db');
+    // console.log('Drop and Resync Db');
     // initial();
 });
 
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
-require('./app/routes/vacationsRoute')(app);
-require('./app/routes/favoriteVacationsRoute')(app);
-
-
+require('./app/routes/vacations.route')(app);
+require('./app/routes/favoriteVacations.route')(app);
+require('./app/routes/images.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
