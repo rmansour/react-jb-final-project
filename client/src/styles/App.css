@@ -75,10 +75,6 @@
 :root .modal-content {
   border: none;
 }
-:root .modal-body {
-  padding-top: 0;
-  padding-bottom: 0;
-}
 :root .form-control:focus {
   box-shadow: none;
 }

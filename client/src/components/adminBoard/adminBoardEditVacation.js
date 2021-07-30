@@ -24,6 +24,7 @@ class AdminBoardEditVacation extends Component {
             startDate: this.props.vacation.start_date,
             endDate: this.props.vacation.end_date,
             price: this.props.vacation.price,
+            previewImage: undefined
         }
     }
 
@@ -126,12 +127,14 @@ class AdminBoardEditVacation extends Component {
                                     display: "flex",
                                     justifyContent: "space-evenly",
                                 }}>
-                                    <p type="Start Date:">
+                                    <p type="Start Date:"
+                                       className="admin__page--modal--edit-vacation-body-div--start-date">
                                         <input type={"date"} value={this.state.startDate}
                                                onChange={(e) => this.setStates('start_date', e.target.value)}
                                                onBlur={(e) => this.setStates('start_date', e.target.value)}/>
                                     </p>
-                                    <p type="End Date:">
+                                    <p type="End Date:"
+                                       className="admin__page--modal--edit-vacation-body-div--end-date">
                                         <input type={"date"} defaultValue={this.state.endDate}
                                                onChange={(e) => this.setStates('end_date', e.target.value)}
                                                onBlur={(e) => this.setStates('end_date', e.target.value)}/>
@@ -156,7 +159,8 @@ class AdminBoardEditVacation extends Component {
                     <Button variant="outline-info" onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        );
+        )
+            ;
     }
 }
 

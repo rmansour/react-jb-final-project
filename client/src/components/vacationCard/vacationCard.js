@@ -82,18 +82,18 @@ function VacationCard({vacation, handleFollowedVacation, user}) {
                 <div className="vacation__card--wrapper--body">
                     <header className="vacation__card--wrapper--body-header">
                         <h2 className="vacation__card--wrapper--body-header-text">{destination}</h2>
-                        <div className="vacation__card--wrapper--body-header--icon-wrapper">
-                            {admin ?
-                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers} followers</p>
-                                :
-                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers}</p>
-                            }
-                            {admin ? "" :
+                        {admin ? (
+                            <div className="vacation__card--wrapper--body-header--icon-wrapper">
+                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers} likes</p>
+                            </div>
+                        ) : (
+                            <div className="vacation__card--wrapper--body-header--icon-wrapper">
+                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers}\</p>
                                 <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"
                                    ref={iconRef}
-                                   onClick={(e) => handleFollowedFunc(e)}/>}
-
-                        </div>
+                                   onClick={(e) => handleFollowedFunc(e)}/>
+                            </div>
+                        )}
                         <section className="vacation__card--wrapper--body-dates">
                             <p>
                                 <i className="vacation__card--wrapper--body-dates-border">
@@ -118,7 +118,8 @@ function VacationCard({vacation, handleFollowedVacation, user}) {
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 function mapStateToProps(state) {

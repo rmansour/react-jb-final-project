@@ -37,7 +37,7 @@
     p:before {
       content: attr(type);
       display: block;
-      margin: 2.8rem 0 0;
+      margin: 1.2rem 0 0;
       color: #0d6efd;
     }
 
@@ -48,4 +48,12 @@
       cursor: pointer;
     }
   }
+}
+
+.admin__page--modal--edit-vacation-body-div--start-date:before {
+  margin: 1rem !important;
+}
+
+.admin__page--modal--edit-vacation-body-div--end-date:before {
+  margin: 1rem !important;
 }
