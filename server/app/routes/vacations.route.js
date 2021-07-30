@@ -29,14 +29,12 @@ module.exports = function (app) {
         );
         next();
     });
-    // app.use(express.static('./resources/uploads'));
     app.use(express.static( 'resources/uploads/'));
-    // app.get('/vacations/getImage', vacationsController.getImage);
     app.get("/vacations/getVacations", vacationsController.getVacations);
     app.post('/vacations/upsertVacation', upload.single('fileUpld'), vacationsController.upsertVacation);
-    app.post('/vacations/addVacation', vacationsController.addVacation);
+    // app.post('/vacations/addVacation', vacationsController.addVacation);
     app.post("/vacations/updateVacationFollowers", vacationsController.updateVacationFollowers);
-    app.post("/vacations/updateVacationAdmin", vacationsController.updateVacationAdmin);
+    // app.post("/vacations/updateVacationAdmin", vacationsController.updateVacationAdmin);
     app.post("/vacations/deleteVacation", vacationsController.deleteVacation);
 
 };

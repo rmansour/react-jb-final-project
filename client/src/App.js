@@ -58,12 +58,17 @@ class App extends Component {
                 <>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <div className="container-fluid">
-                            <Link to={{
-                                pathname: "/",
-                            }}
-                                  className="navbar-brand">
-                                Travel Agency
-                            </Link>
+                            {currentUser ? (
+                                <Link to={{pathname: "/",}}
+                                      className="navbar-brand">
+                                    Travel Agency
+                                </Link>
+                            ) : (
+                                <Link to={{pathname: "/register",}}
+                                      className="navbar-brand">
+                                    Travel Agency
+                                </Link>
+                            )}
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="Toggle navigation">

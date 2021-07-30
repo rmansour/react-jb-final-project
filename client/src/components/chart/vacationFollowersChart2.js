@@ -4,8 +4,6 @@ import {Bar} from "react-chartjs-2";
 import UserService from "../../services/user.service";
 
 function VacationFollowersChart2(props) {
-    // const vacations = useSelector(state => state.vacations);
-    // const userData = useSelector(state => state.)
     const [vacations, setVacations] = useState([]);
     const [user, setUser] = useState(props.user.user);
     console.log(user);
