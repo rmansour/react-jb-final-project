@@ -13,7 +13,6 @@ class Home extends Component {
             vacations: [],
             filteredVacations: [],
             searchInput: '',
-            favoriteVacationsByUserId: [],
         };
         this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
         this.getVacations = this.getVacations.bind(this);
@@ -27,9 +26,7 @@ class Home extends Component {
                     vacations: response.data
                 }, () => {
                     console.log(this.state.vacations);
-                    UserService.getFavouriteVacationsByUserID(this.state.currentUser.id).then(response => {
-                        this.setState({favoriteVacationsByUserId: response.data});
-                    })
+                    this.props.updateVacations(response.data);
                 });
             },
             error => {
@@ -127,11 +124,24 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     const {user} = state.auth;
     return {
         user,
     };
 }
 
-export default connect(mapStateToProps)(Home);
+const dispatchStateToProps = (dispatch) => {
+    return {
+
+        updateVacations(value) {
+            console.log('updateVacations', value)
+            dispatch({
+                type: "updateVacations",
+                payload: value
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, dispatchStateToProps)(Home);

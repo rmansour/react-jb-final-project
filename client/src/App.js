@@ -13,6 +13,8 @@ import Register from "./components/register";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardAdmin from "./components/adminBoard/board-admin.component";
+// import VacationFollowersChart from "./components/chart/vacationFollowersChart";
+import VacationFollowersChart2 from "./components/chart/vacationFollowersChart2";
 
 // actions, helpers and history
 import {logout} from "./actions/auth";
@@ -77,7 +79,15 @@ class App extends Component {
                                             </Link>
                                         </li>
                                     )}
+                                    {showAdminBoard && (
+                                        <li className="nav-item">
+                                            <Link to={"/followers-chart"} className="nav-link">
+                                                Followers' Chart
+                                            </Link>
+                                        </li>
+                                    )}
                                 </div>
+
 
                                 {currentUser ? (
                                     <div className="navbar-nav ms-auto">
@@ -117,6 +127,7 @@ class App extends Component {
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/profile" component={Profile}/>
+                            <Route exact path="/followers-chart" component={VacationFollowersChart2}/>
                             <Route path="/admin" component={BoardAdmin}/>
                         </Switch>
                     </div>
