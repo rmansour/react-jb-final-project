@@ -48,7 +48,6 @@ class AdminAddVacation extends Component {
     };
 
     addVacation = () => {
-        // e.preventDefault();
         if (this.selectedFile)
             this.fileUploadHandler();
 
@@ -73,17 +72,9 @@ class AdminAddVacation extends Component {
         this.fd.append('price', this.state.price);
         this.fd.append('start_date', this.state.startDate);
         this.fd.append('end_date', this.state.endDate);
-
-        for (let formData of this.fd.entries()) {
-            console.log(formData);
-        }
-
-        // await UserService.upsertVacation(fd);
     };
 
     render() {
-        // console.log(this.state.objToSubmit);
-
         return (
             <>
                 <Modal

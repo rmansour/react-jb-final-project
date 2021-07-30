@@ -1,45 +1,65 @@
 .admin__page {
-  /* Works on Firefox */
-  /* Works on Chrome, Edge, and Safari */
+    /* Works in Firefox */
+    /* Works in Chrome, Edge, and Safari */
 }
+
 .admin__page * {
-  scrollbar-width: thin;
-  scrollbar-color: #d0d0d0 white;
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 white;
 }
+
 .admin__page *::-webkit-scrollbar {
-  width: 8px;
+    width: 8px;
 }
+
 .admin__page *::-webkit-scrollbar-track {
-  background: #f1f1f1;
+    background: #f1f1f1;
 }
+
 .admin__page *::-webkit-scrollbar-thumb {
-  background-color: #d0d0d0;
-  border-radius: 20px;
+    background-color: #d0d0d0;
+    border-radius: 20px;
 }
+
 .admin__page--header-container {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: space-between;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
+
+.admin__page--header-container-div {
+    margin-right: auto;
+}
+
+.admin__page---add-vacation-btn {
+    margin-left: auto;
+}
+
 .admin__page--content {
-  margin-top: 1.4rem;
+    margin-top: 1.4rem;
 }
+
 .admin__page--content--vacations-table {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
+
 .admin__page--content--vacations-table-row {
-  overflow-y: auto;
+    overflow-y: auto;
 }
+
 .admin__page--content--vacations-table-row--description > a > div {
-  padding-right: 0.5rem;
+    padding-right: 0.5rem;
 }
+
 .admin__page--content--vacations-table-row--action-btns {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
+
 .admin__page--content--vacations-table-row--action-btns--edit-btn {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 /*# sourceMappingURL=adminPage.css.map */

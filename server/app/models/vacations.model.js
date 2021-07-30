@@ -36,7 +36,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         followers: {
             type: Sequelize.INTEGER,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         }
     });
     return Vacations;

@@ -1,91 +1,97 @@
-import React, {Component} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {connect} from "react-redux";
-import UserService from '../../services/user.service';
 import {Bar} from "react-chartjs-2";
+import UserService from "../../services/user.service";
 
-class VacationFollowersChart extends Component {
-    constructor(props) {
-        super(props);
+function VacationFollowersChart(props) {
+    const [vacations, setVacations] = useState([]);
+    const [user] = useState(props.user.user);
+    console.log(user);
+    const [chartData, setChartData] = useState();
 
-        this.state = {
-            currentUser: this.props.user.user,
-            chartData: {
-                type: 'bar',
-                data: {
-                    labels: ['a', 'v', 'c', 'd', 'e', 'f'],
-                    datasets: [{
-                        label: '# of Followers',
-                        data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        },
-                        xAxis: {
-                            type: 'Vacation'
-                        }
-                    }
+    useEffect(() => {
+        UserService.getFavouriteVacationsByUserIDsorted(user.id).then(response => {
+            setVacations(response.data);
+        });
+    }, [user.id]);
+
+    const vacationsForChart = useMemo(() => vacations.filter(v => v.followers > 0).map(vacation => `${vacation.destination}(${vacation.id})`), [vacations]);
+
+    const vacationsForChartFollowers = useMemo(() => vacations.filter(v => v.followers > 0).map(vacation => vacation.followers), [vacations]);
+
+    const chart = useCallback(() => {
+        console.log(vacations);
+        setChartData({
+            labels: vacationsForChart,
+            datasets: [
+                {
+                    data: vacationsForChartFollowers,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
                 }
-            }
-        }
-    }
+            ]
+        })
+    }, [vacationsForChart, vacationsForChartFollowers, vacations]);
 
-    componentDidMount() {
-        this.getVacations();
-    }
+    useEffect(() => {
+        chart()
+    }, [chart]);
 
-    getVacations = async () => {
-        let vacations = await UserService.getFavouriteVacationsByUserIDsorted(this.state.currentUser.id);
-        let chartDataLocal = {...this.state.chartData};
-        let vacationDestination = vacations.data.map(vacation => {
-            return vacation.destination;
-        });
-        chartDataLocal.data.labels = vacationDestination;
-        this.setState({chartData: chartDataLocal}, () => {
-            console.log(this.state.chartData);
-        });
-    }
-
-    render() {
-        console.log('rendered');
-        // console.log(this.state.chartData.data.labels);
-        return (
-            <div className={"chart container"}>
-                <Bar data={this.state.chartData.data}
-                     options={{
-                         maintainAspectRatio: true
-                     }}/>
+    return (
+        <div>
+            <div style={{
+                width: '90vw',
+                height: '85vh',
+                position: 'relative',
+                top: '80px',
+                left: '50%',
+                transform: 'translateX(-50%)'
+            }}>
+                <Bar
+                    data={chartData}
+                    options={{
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                suggestedMin: 0,
+                                suggestedMax: 20,
+                            },
+                        },
+                    }}/>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         vacations: state.vacations,
         user: state.auth
     };
 }
-
 
 export default connect(mapStateToProps)(VacationFollowersChart);

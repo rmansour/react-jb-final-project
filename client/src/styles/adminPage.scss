@@ -1,11 +1,11 @@
 .admin__page {
-  /* Works on Firefox */
+  /* Works in Firefox */
   * {
     scrollbar-width: thin;
     scrollbar-color: #d0d0d0 white;
   }
 
-  /* Works on Chrome, Edge, and Safari */
+  /* Works in Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
     width: 8px;
   }
@@ -17,15 +17,24 @@
   *::-webkit-scrollbar-thumb {
     background-color: #d0d0d0;
     border-radius: 20px;
-    //border: 3px solid #ececec;
   }
-
 
 
   &--header-container {
     margin-top: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+
+    &-div {
+      margin-right: auto;
+    }
+  }
+
+  &---add-vacation-btn {
+    margin-left: auto;
   }
 
   &--content {
@@ -34,17 +43,13 @@
     &--vacations-table {
       height: 100%;
       width: 100%;
-      //table-layout: fixed;
 
       &-row {
-        //height: 20px!important;
-        //height: 30px;
         overflow-y: auto;
 
         &--description {
           & > a {
             & > div {
-              //text-align: ;
               padding-right: .5rem;
             }
           }

@@ -24,7 +24,6 @@ class AdminBoardEditVacation extends Component {
             startDate: this.props.vacation.start_date,
             endDate: this.props.vacation.end_date,
             price: this.props.vacation.price,
-            content: ""
         }
     }
 
@@ -52,12 +51,11 @@ class AdminBoardEditVacation extends Component {
     }
 
     updateVacations = async () => {
-        if (this.selectedFile)
-            this.fileUploadHandler();
+        this.fileUploadHandler();
+        // for (let formData of this.fd.entries()) {
+        //     console.log(formData);
+        // }
 
-        for (let formData of this.fd.entries()) {
-            console.log(formData);
-        }
         await UserService.upsertVacation(this.fd).then(() => {
             alert("updated");
             this.props.onHide();
@@ -66,7 +64,6 @@ class AdminBoardEditVacation extends Component {
     }
 
     async submit() {
-
         await this.updateVacations();
     }
 
@@ -75,26 +72,19 @@ class AdminBoardEditVacation extends Component {
     }
 
     fileUploadHandler = () => {
-        console.log(this.selectedFile);
+        // console.log(this.selectedFile);
+        if (this.selectedFile)
+            this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
 
-        this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
         this.fd.append('vacationId', this.state.vacationID);
         this.fd.append('destination', this.state.destination);
         this.fd.append('description', this.state.textAreaDescription);
         this.fd.append('price', this.state.price);
         this.fd.append('start_date', this.state.startDate);
         this.fd.append('end_date', this.state.endDate);
-
-        for (let formData of this.fd.entries()) {
-            console.log(formData);
-        }
-
-        // await UserService.upsertVacation(fd);
     };
 
     render() {
-        // console.log(this.state.objToSubmit);
-
         return (
             <Modal
                 {...this.props}

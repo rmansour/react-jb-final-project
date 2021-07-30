@@ -1,7 +1,6 @@
 const db = require("../models");
 const fs = require("fs");
 const Vacations = db.vacations;
-const path = require("path");
 
 exports.getVacations = async (req, res) => {
     try {
@@ -12,44 +11,8 @@ exports.getVacations = async (req, res) => {
         res.status(404).send(e);
     }
 };
-//
-// exports.getImage = async (req, res) => {
-//     try {
-//         console.log(req.query);
-//         Vacations.findOne({where: {id: req.query.id}}).then((response) => {
-//             fs.readdir(
-//                 path.resolve(__dirname, '../../resources/uploads/'),
-//                 (err, files) => {
-//                     if (err) throw err;
-//
-//                     for (let file of files) {
-//                         console.log(file);
-//                         if (file === response.filename)
-//                             res.status(200).send(response.filename);
-//                     }
-//                 }
-//             );
-//         })
-//     } catch (e) {
-//         console.log(e);
-//         res.status(500).send(e);
-//     }
-// }
-//
-// exports.addVacation = async (req, res) => {
-//     let reqB = req.body;
-//
-//     try {
-//         await Vacations.create(reqB).then(result => {
-//             res.status(200).send(result);
-//         });
-//     } catch (e) {
-//         console.log(e);
-//         res.status(500).send(200);
-//     }
-// }
+
 exports.updateVacationFollowers = async (req, res) => {
-    // console.log(req.body);
     try {
         await Vacations.update(
             {followers: req.body.followers},
@@ -72,6 +35,10 @@ exports.upsertVacation = async (req, res) => {
         if (vacationId === undefined || vacationId === '') {
             vacationId = -1;
         }
+        // if (req.file === undefined || req.body.filename === undefined && req.body.type === undefined || req.file === null) {
+        //     return res.status(500).send(`Server was unable to save file.`);
+        // }
+
         console.log(vacationId);
 
         let whereCondition = {where: {id: vacationId}};
@@ -85,13 +52,20 @@ exports.upsertVacation = async (req, res) => {
             type: req.file.mimetype,
             filename: req.file.filename,
         };
-        console.log(values);
+        // console.log(values);
 
-        if (req.file === undefined) {
-            return res.status(500).send(`Server was unable to save file.`);
-        }
+        // type: req.file.mimetype ? req.file.mimetype : '',
+        //     filename: req.file.filename ? req.file.filename : '',
+
         let fileForDeletion = '';
 
+        //
+        // destination: values.destination,
+        //     description: values.description,
+        //     start_date: values.start_date,
+        //     end_date: values.end_date,
+        //     filename: values.filename,
+        //     type: values.type
 
         let vacationImageInfo = Vacations.findOne(
             {where: {id: vacationId}},
@@ -100,7 +74,7 @@ exports.upsertVacation = async (req, res) => {
             console.log('response', response);
 
             if (response === null) {
-                Vacations.create(values).then(() => {
+                Vacations.create({}).then(() => {
                     console.log('insert')
                     res.status(200).send("Image uploaded successfully!");
                 }).catch(err => {
@@ -108,7 +82,7 @@ exports.upsertVacation = async (req, res) => {
                     res.status(500).send("Insert: couldn't upload image!");
                 })
             } else {
-                console.log(response.dataValues);
+                // console.log(response.dataValues);
                 fileForDeletion = response.dataValues.filename
                 console.log('fileForDeletion', fileForDeletion);
                 Vacations.update(values, whereCondition, options).then(() => {

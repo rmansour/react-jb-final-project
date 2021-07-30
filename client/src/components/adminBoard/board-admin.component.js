@@ -65,11 +65,13 @@ class BoardAdminComponent extends Component {
     }
 
     render() {
-        // console.log(this.props)
         return (
             <div className="admin__page container-fluid">
                 <header className="jumbotron admin__page--header-container">
-                    <h3 className="admin__page--header-container-text">{this.state.content}</h3>
+                    <div className="jumbotron admin__page--header-container-div">
+                        <h3 className="admin__page--header-container-text">{this.state.content}</h3>
+                        <small>click the vacation's description to expand!</small>
+                    </div>
                     <div className="admin__page--add-vacation-btn">
                         <Button variant="outline-info" onClick={() => this.setModalShow(true)}>Add Vacation</Button>
                     </div>

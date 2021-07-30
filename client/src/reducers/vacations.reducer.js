@@ -8,7 +8,6 @@ export default function (state = initialState, action) {
 
     switch (type) {
         case 'updateVacations':
-            console.log(payload);
             state = {...state, vacations: [...payload]};
             break;
         default:

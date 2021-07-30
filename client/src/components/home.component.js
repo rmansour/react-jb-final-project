@@ -25,16 +25,7 @@ class Home extends Component {
                 this.setState({
                     vacations: response.data
                 }, () => {
-                    console.log(this.state.vacations);
                     this.props.updateVacations(response.data);
-                });
-            },
-            error => {
-                this.setState({
-                    content:
-                        (error.response && error.response.data) ||
-                        error.message ||
-                        error.toString()
                 });
             }
         );
@@ -81,13 +72,6 @@ class Home extends Component {
     render() {
         return (
             <div className="home__component">
-                {/*<div className="home__component--search-div bg-light">*/}
-                {/*    <form className="home__component--search-div--form form my-2 my-lg-0">*/}
-                {/*        <input className="form-control mr-sm-2" type="search" placeholder="Search"*/}
-                {/*               aria-label="Search"*/}
-                {/*               onChange={(e) => this.onSearch(e)}/>*/}
-                {/*    </form>*/}
-                {/*</div>*/}
                 <div className="search-bar p-2 rounded rounded-pill shadow-sm">
                     <div className="input-group">
                         <input type="search" placeholder="What're you searching for?"
@@ -135,7 +119,6 @@ const dispatchStateToProps = (dispatch) => {
     return {
 
         updateVacations(value) {
-            console.log('updateVacations', value)
             dispatch({
                 type: "updateVacations",
                 payload: value
