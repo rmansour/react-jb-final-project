@@ -98,7 +98,7 @@ select *
 from Q
 order by sortOrder, id;`;
 
-        let result = await db.sequelize.query(stmt);
+        let result = await db.sequelize.query(stmt)
 
         result.forEach((v, index) => {
             console.log(v[index].destination);
