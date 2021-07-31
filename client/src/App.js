@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Link, Redirect, Route, Router, Switch} from "react-router-dom";
+import {Link, Route, Router, Switch} from "react-router-dom";
 
 // styles
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -54,12 +54,10 @@ class App extends Component {
 
     render() {
         const {currentUser, showAdminBoard} = this.state;
-        // console.log(history);
+
         if (!currentUser) {
             history.push('/login');
         }
-        // console.log(history);
-
         return (
             <Router history={history}>
                 <>
@@ -149,9 +147,7 @@ class App extends Component {
     }
 }
 
-function
-
-mapStateToProps(state) {
+function mapStateToProps(state) {
     const {user} = state.auth;
     return {
         user,

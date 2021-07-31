@@ -6,7 +6,6 @@ import UserService from "../../services/user.service";
 function VacationFollowersChart(props) {
     const [vacations, setVacations] = useState([]);
     const [user] = useState(props.user.user);
-    console.log(user);
     const [chartData, setChartData] = useState();
 
     useEffect(() => {
@@ -18,7 +17,7 @@ function VacationFollowersChart(props) {
     const vacationsForChart = useMemo(() => vacations.filter(v => v.followers > 0).map(vacation => `${vacation.destination}(${vacation.id})`), [vacations]);
 
     const vacationsForChartFollowers = useMemo(() => vacations.filter(v => v.followers > 0).map(vacation => vacation.followers), [vacations]);
-    
+
     const chart = useCallback(() => {
         console.log(vacations);
         setChartData({

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 function VacationCard({vacation, handleFollowedVacation, user}) {
 
-    console.log(vacation)
+    // console.log(vacation)
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
     const {

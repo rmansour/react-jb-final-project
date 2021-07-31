@@ -10,8 +10,7 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/favouriteVacation/getFavouriteVacations", favouriteVacationsController.getFavouriteVacations);
-    app.get("/favouriteVacation/getFavouriteVacationsByUserID", favouriteVacationsController.getFavouriteVacationsByUserID);
+
     app.get("/favouriteVacation/getFavouriteVacationsByUserIDsorted", favouriteVacationsController.getFavouriteVacationsByUserIDsorted);
 
     app.post("/favouriteVacation/deleteVacationFromFavourites", favouriteVacationsController.deleteVacationFromFavourites);

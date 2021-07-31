@@ -12,10 +12,9 @@ class Home extends Component {
         this.state = {
             currentUser: this.props.user,
             vacations: [],
+            originalVacationData: [],
             filteredVacations: [],
-            searchInput: '',
         };
-        // this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
         this.getVacations = this.getVacations.bind(this);
         this.handleFollowedVacation = this.handleFollowedVacation.bind(this);
     }
@@ -24,18 +23,21 @@ class Home extends Component {
         await UserService.getFavouriteVacationsByUserIDsorted(this.state.currentUser.id).then(
             response => {
                 this.setState({
-                    vacations: response.data
+                    originalVacationData: response.data
                 }, () => {
-                    console.log(this.state.vacations);
+                    console.log(this.state.originalVacationData);
                     console.log('end set state');
                 });
+                this.setState({vacations: response.data});
             }
         );
     }
 
     componentDidMount() {
-        if (this.state.currentUser)
+        if (this.state.currentUser) {
+
             this.getVacations();
+        }
 
         socket.on('addedVacation', () => {
             console.log('componentDidMount going to server');
@@ -61,12 +63,24 @@ class Home extends Component {
     }
 
     onSearch = (e) => {
+        let tmpArr = this.state.originalVacationData;
+        if (e.target.value) {
+            tmpArr = this.state.originalVacationData.filter(vacation => vacation.destination.toLowerCase().includes((e.target.value).toLowerCase()));
+        }
 
-        this.setState({searchInput: (e.target.value).toLowerCase()});
-        let tmpArr = this.state.vacations.filter(vacation => vacation.destination.toLowerCase().includes((e.target.value).toLowerCase()));
-        this.setState({filteredVacations: tmpArr});
+        this.setState({vacations: tmpArr});
     }
 
+    /**
+     *
+     * @param e
+     * @param vacation
+     * @param iconRef
+     * @param liked
+     * @returns {Promise<void>}
+     *
+     * this method
+     */
     handleFollowedVacation = async (e, vacation, iconRef, liked) => {
         console.log('likedBool handleFollowedVacation', liked);
         console.log('handleFollowedVacation vacation', vacation);
@@ -108,20 +122,12 @@ class Home extends Component {
                 </div>
                 <div className="row home__component--cards-div">
                     {
-                        this.state.filteredVacations.length === 0 ?
-                            this.state.vacations.map((vacation, index) => {
-                                return <VacationCard
-                                    handleFollowedVacation={this.handleFollowedVacation}
-                                    vacation={vacation}
-                                    key={index}/>
-                            })
-                            :
-                            this.state.filteredVacations.map((vacation, index) => {
-                                return <VacationCard
-                                    handleFollowedVacation={this.handleFollowedVacation}
-                                    vacation={vacation}
-                                    onSearchInput={this.onSearch} key={index}/>
-                            })
+                        this.state.vacations.map((vacation, index) => {
+                            return <VacationCard
+                                handleFollowedVacation={this.handleFollowedVacation}
+                                vacation={vacation}
+                                key={index}/>
+                        })
                     }
                 </div>
             </div>

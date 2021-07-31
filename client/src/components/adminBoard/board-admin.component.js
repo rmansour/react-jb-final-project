@@ -21,6 +21,9 @@ class BoardAdminComponent extends Component {
         };
     }
 
+    /**
+     *
+     */
     componentDidMount() {
         UserService.getAdminBoard().then(
             response => {
@@ -50,7 +53,7 @@ class BoardAdminComponent extends Component {
             this.getVacations();
         });
 
-        socket.on('updatedVacations', (payload) => {
+        socket.on('updatedVacations', () => {
             this.getVacations();
         });
 

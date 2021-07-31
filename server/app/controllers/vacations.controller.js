@@ -9,7 +9,7 @@ exports.getVacations = async (req, res) => {
             res.status(200).send(vacations);
         });
     } catch (e) {
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
 };
 
@@ -28,14 +28,22 @@ exports.updateVacationFollowers = async (req, res) => {
     }
 };
 
+/**
+ * This function handles two situations:
+ * 1. insert new vacation by admin
+ * 2. update existing vacation by admin
+ *
+ * if vacation doesn't exist, i.e. vacationId === undefined -> create new vacation
+ * else (vacationId exist) update the relevant columns from the values in the request body
+ *
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.upsertVacation = async (req, res) => {
     try {
-        console.log('req.body', req.body);
-        console.log('req.file', req.file);
 
         let vacationId = req.body.vacationId;
-
-        console.log(vacationId);
 
         let whereCondition = {where: {id: vacationId}};
         let options = {multi: true}
@@ -52,7 +60,6 @@ exports.upsertVacation = async (req, res) => {
         let fileForDeletion = '';
         if (vacationId === undefined || vacationId === '') {
             Vacations.create(values).then(() => {
-                console.log('insert');
                 res.status(200).send("Vacation created successfully!");
                 io.emit('addedVacation');
             }).catch(err => {
@@ -64,9 +71,7 @@ exports.upsertVacation = async (req, res) => {
                 {where: {id: vacationId}},
                 {query: {raw: true}}
             ).then(response => {
-                console.log(response.dataValues);
                 fileForDeletion = response.dataValues.filename;
-                console.log('fileForDeletion', fileForDeletion);
                 Vacations.update(values, whereCondition, options).then((response) => {
                     if (fileForDeletion !== '') {
                         try {
@@ -92,33 +97,6 @@ exports.upsertVacation = async (req, res) => {
         return res.send(`Error when trying upload images: ${error}`);
     }
 };
-
-//
-// exports.updateVacationAdmin = async (req, res) => {
-//     // console.log(req.body);
-//
-//     let values = {
-//         vacationId: req.body.id,
-//         destination: req.body.destination,
-//         src: req.body.src,
-//         description: req.body.description,
-//         start_date: req.body.start_date,
-//         end_date: req.body.end_date,
-//         price: Number(req.body.price)
-//     }
-//     let whereCondition = {where: {id: req.body.id}};
-//     let options = {multi: true}
-//
-//     try {
-//         await Vacations.update(values, whereCondition, options).then(result => {
-//             res.status(200).send(result);
-//         });
-//     } catch (e) {
-//         console.log(e);
-//         res.status(500).send(e);
-//
-//     }
-// };
 
 exports.deleteVacation = async (req, res) => {
     let reqBody = req.body;

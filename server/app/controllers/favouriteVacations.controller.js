@@ -1,53 +1,14 @@
 const db = require("../models");
 const fs = require("fs");
 const FavoriteVacations = db.favoriteVacations;
-const Vacations = db.vacations;
 
-exports.getFavouriteVacations = async (req, res) => {
-    try {
-        await FavoriteVacations.findAll().then(vacations => {
-            res.status(200).send(vacations);
-        })
-    } catch (e) {
-        console.log(e);
-        res.status(404).send(e);
-    }
-};
-
-exports.getFavouriteVacationsByUserID = async (req, res) => {
-    // console.log(req.query);
-    try {
-        let favorites = await FavoriteVacations.findAll({
-            where: {
-                userId: req.query.userId
-            }
-        });
-        // console.log(favorites);
-        res.status(200).send(favorites);
-    } catch (e) {
-        console.log(e);
-        res.status(500).send(e);
-    }
-};
-
-
-exports.getVacationsWithFollowedStatus = async (req, res) => {
-    try {
-        await FavoriteVacations.findAll({
-            include: {
-                model: Vacations
-            }
-        }).then(vacations => {
-            res.status(200).send(vacations);
-        })
-    } catch (e) {
-        console.log(e);
-        res.status(500).send(e);
-    }
-};
-
+/**
+ * add vacation to favorites by userId
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 exports.addVacationToFavorites = async (req, res) => {
-    console.log(req.body);
     try {
         await FavoriteVacations.create(req.body).then(result => {
             res.status(200).send(result);
@@ -58,6 +19,12 @@ exports.addVacationToFavorites = async (req, res) => {
     }
 };
 
+/**
+ * Delete vacation from favorites by userId and vacationId
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 exports.deleteVacationFromFavourites = async (req, res) => {
     console.log(req.body);
     try {
@@ -100,8 +67,11 @@ order by sortOrder, id;`;
 
         let result = await db.sequelize.query(stmt)
 
+        /**
+         * Assign 'filename' key and value to the result from server
+         */
+
         result.forEach((v, index) => {
-            console.log(v[index].destination);
             let fileName = v[index].filename;
             if (fileName !== undefined && fileName !== '' && fs.existsSync(fileName)) {
                 try {
@@ -111,9 +81,8 @@ order by sortOrder, id;`;
                     console.error(err);
                 }
             }
-        })
+        });
 
-        // console.log(result);
         res.status(200).send(result[0]);
     } catch (e) {
         console.log(e);

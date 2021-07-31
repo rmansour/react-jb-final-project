@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
-// const initRoutes = require("./src/routes/web");
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
     cors: {
@@ -20,8 +19,6 @@ io.on('connection', (socket) => {
         console.log('user disconnected', socket.id);
     });
 })
-
-
 
 const db = require('./app/models');
 const Role = db.role;
@@ -62,8 +59,7 @@ function initial() {
 
 }
 
-//{force:true}
-//{alter:true}
+
 db.sequelize.sync().then(() => {
     // console.log('Drop and Resync Db');
     // initial();
@@ -74,7 +70,6 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/vacations.route')(app);
 require('./app/routes/favoriteVacations.route')(app);
-require('./app/routes/images.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
