@@ -20,7 +20,6 @@ class AdminAddVacation extends Component {
             startDate: '',
             endDate: '',
             price: 0,
-            objToSubmit: {}
         }
 
     }
@@ -48,15 +47,18 @@ class AdminAddVacation extends Component {
     };
 
     addVacation = () => {
-        if (this.selectedFile)
-            this.fileUploadHandler();
+        if (this.selectedFile) {
+            this.fileUploadHandler().then(() => {
+                UserService.upsertVacation(this.fd).then(() => {
+                    alert("added");
+                    this.props.onHide();
+                    this.props.updateVacations();
+                    this.fd = new FormData();
+                });
+            });
+        } else
+            alert('Please add image!');
 
-        console.log(this.state.objToSubmit);
-        UserService.upsertVacation(this.fd).then(() => {
-            alert("added");
-            this.props.onHide();
-            this.props.updateVacations();
-        });
     }
 
     fileSelectedHandler = event => {
@@ -64,8 +66,6 @@ class AdminAddVacation extends Component {
     }
 
     fileUploadHandler = async () => {
-        console.log(this.selectedFile);
-
         this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
         this.fd.append('destination', this.state.destination);
         this.fd.append('description', this.state.description);

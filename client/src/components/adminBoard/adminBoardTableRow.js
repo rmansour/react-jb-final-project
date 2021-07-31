@@ -3,6 +3,7 @@ import '../../styles/adminPage.css';
 import UserService from '../../services/user.service';
 import AdminBoardEditVacation from "./adminBoardEditVacation";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import dateFormat from "dateformat";
 
 
 const renderTooltip = (props) => (
@@ -11,7 +12,7 @@ const renderTooltip = (props) => (
     </Tooltip>
 );
 
-export default function AdminBoardTableRow({vacation, index, vacations, updateVacations}) {
+export default function AdminBoardTableRow({vacation, index, updateVacations, user}) {
     const [MAX_LENGTH] = useState(100);
     const [readMore, setReadMore] = useState(false);
 
@@ -25,6 +26,7 @@ export default function AdminBoardTableRow({vacation, index, vacations, updateVa
     }
 
     const deleteVacation = async (id) => {
+        await UserService.deleteVacationFromFavourites({vacationId: id, userId: user.id})
         await UserService.deleteVacation({id: id});
         await updateVacations();
     }
@@ -52,8 +54,8 @@ export default function AdminBoardTableRow({vacation, index, vacations, updateVa
                         </OverlayTrigger>
                     </a>
                 </td>
-                <td>{vacation.start_date}</td>
-                <td>{vacation.end_date}</td>
+                <td>{(dateFormat(vacation.start_date, "dd.mm.yyyy"))}</td>
+                <td>{(dateFormat(vacation.end_date, "dd.mm.yyyy"))}</td>
                 <td>{vacation.price}$</td>
                 <td>{vacation.followers}</td>
                 <td>{vacation.createdAt}</td>
@@ -75,7 +77,6 @@ export default function AdminBoardTableRow({vacation, index, vacations, updateVa
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 vacation={vacation}
-                vacations={vacations}
             />
         </>
     );

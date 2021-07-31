@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Link, Route, Router, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Router, Switch} from "react-router-dom";
 
 // styles
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +20,7 @@ import {logout} from "./actions/auth";
 import {clearMessage} from "./actions/messages";
 import {history} from './helpers/history';
 
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +28,7 @@ class App extends Component {
 
         this.state = {
             showAdminBoard: false,
-            currentUser: undefined
+            currentUser: undefined,
         };
 
         history.listen((location) => {
@@ -46,12 +47,19 @@ class App extends Component {
         }
     }
 
+
     logOut() {
         this.props.dispatch(logout());
     }
 
     render() {
         const {currentUser, showAdminBoard} = this.state;
+        // console.log(history);
+        if (!currentUser) {
+            history.push('/login');
+        }
+        // console.log(history);
+
         return (
             <Router history={history}>
                 <>
@@ -141,7 +149,9 @@ class App extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function
+
+mapStateToProps(state) {
     const {user} = state.auth;
     return {
         user,

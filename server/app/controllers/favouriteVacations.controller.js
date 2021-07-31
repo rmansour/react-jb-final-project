@@ -47,21 +47,26 @@ exports.getVacationsWithFollowedStatus = async (req, res) => {
 };
 
 exports.addVacationToFavorites = async (req, res) => {
+    console.log(req.body);
     try {
         await FavoriteVacations.create(req.body).then(result => {
             res.status(200).send(result);
         })
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
-
 };
 
 exports.deleteVacationFromFavourites = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
-        await FavoriteVacations.destroy({where: {vacationId: req.body.vacationId}}).then(result => {
+        await FavoriteVacations.destroy({
+            where: {
+                vacationId: req.body.vacationId,
+                userId: req.body.userId
+            }
+        }).then(result => {
             res.status(200).send(JSON.stringify(result));
         })
     } catch (e) {
@@ -76,21 +81,26 @@ exports.getFavouriteVacationsByUserIDsorted = async (req, res) => {
 
     try {
         let stmt = `with Q as (
-            select v.*,
-                   case
-                       when fv.vacationId is null then 1
-                       else 0
-                   end as sortOrder
-            from vacations v
-                  left outer join favorite_vacations fv on v.id = fv.vacationId and fv.userId = ${reqB.userId}
-        )
+    select v.*,
+           case
+               when fv.vacationId is null then 1
+               else 0
+               end as sortOrder,
+           case
+               when fv.vacationId is null then 0
+               else 1
+               end as liked
+    from vacations v
+             left outer join favorite_vacations fv on v.id = fv.vacationId and fv.userId = ${reqB.userId}
+)
 
-        select * from Q
-        order by sortOrder, id;`;
+select *
+from Q
+order by sortOrder, id;`;
 
         let result = await db.sequelize.query(stmt);
 
-        result.forEach((v,index) => {
+        result.forEach((v, index) => {
             console.log(v[index].destination);
             let fileName = v[index].filename;
             if (fileName !== undefined && fileName !== '' && fs.existsSync(fileName)) {

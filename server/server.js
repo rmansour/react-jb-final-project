@@ -1,9 +1,27 @@
 const express = require('express');
 const cors = require('cors');
+const app = express();
 const bodyParser = require('body-parser');
 // const initRoutes = require("./src/routes/web");
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, {
+    cors: {
+        origin: "*"
+    }
+});
 
-const app = express();
+module.exports = io;
+
+io.on('connection', (socket) => {
+    console.log('user connected');
+    // console.log(socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected', socket.id);
+    });
+})
+
+
 
 const db = require('./app/models');
 const Role = db.role;
@@ -19,11 +37,11 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Raed's application." });
+    res.json({message: "Welcome to Raed's application."});
 });
 
 
@@ -43,6 +61,7 @@ function initial() {
     });
 
 }
+
 //{force:true}
 //{alter:true}
 db.sequelize.sync().then(() => {
@@ -59,6 +78,7 @@ require('./app/routes/images.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+
+httpServer.listen(8080, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

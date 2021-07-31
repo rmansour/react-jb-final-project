@@ -36,8 +36,8 @@ class UserService {
         return await axios.post(API_URL_VACATIONS + '/deleteVacation', id);
     }
 
-    async deleteVacationFromFavourites(vacationId) {
-        return await axios.post(API_URL_FAVORITE_VACATIONS + '/deleteVacationFromFavourites', vacationId);
+    async deleteVacationFromFavourites(obj) {
+        return await axios.post(API_URL_FAVORITE_VACATIONS + '/deleteVacationFromFavourites', obj);
     }
 
     async upsertVacation(fd) {

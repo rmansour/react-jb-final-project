@@ -19,6 +19,8 @@ class AdminBoardEditVacation extends Component {
 
         this.state = {
             textAreaDescription: this.props.vacation.description,
+            filename: this.props.vacation.filename,
+            type: this.props.vacation.type,
             vacationID: this.props.vacation.id,
             destination: this.props.vacation.destination,
             startDate: this.props.vacation.start_date,
@@ -53,14 +55,16 @@ class AdminBoardEditVacation extends Component {
 
     updateVacations = async () => {
         this.fileUploadHandler();
-        // for (let formData of this.fd.entries()) {
-        //     console.log(formData);
-        // }
+        for (let formData of this.fd.entries()) {
+            console.log(formData);
+        }
 
         await UserService.upsertVacation(this.fd).then(() => {
             alert("updated");
             this.props.onHide();
             this.props.updateVacations();
+            this.fd = new FormData();
+            
         });
     }
 
@@ -73,9 +77,12 @@ class AdminBoardEditVacation extends Component {
     }
 
     fileUploadHandler = () => {
-        // console.log(this.selectedFile);
         if (this.selectedFile)
             this.fd.append('fileUpld', this.selectedFile, this.selectedFile.name);
+        else {
+            this.fd.append('type', this.state.type);
+            this.fd.append('filename', this.state.filename);
+        }
 
         this.fd.append('vacationId', this.state.vacationID);
         this.fd.append('destination', this.state.destination);
@@ -83,6 +90,7 @@ class AdminBoardEditVacation extends Component {
         this.fd.append('price', this.state.price);
         this.fd.append('start_date', this.state.startDate);
         this.fd.append('end_date', this.state.endDate);
+        console.log(this.selectedFile);
     };
 
     render() {

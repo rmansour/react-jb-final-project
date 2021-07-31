@@ -5,6 +5,7 @@ import {Button, Table} from "react-bootstrap";
 import AdminBoardTableRow from "./adminBoardTableRow";
 import {connect} from "react-redux";
 import AdminAddVacation from "./adminAddVacation";
+import socket from "../../SocketClass";
 
 class BoardAdminComponent extends Component {
     constructor(props) {
@@ -40,6 +41,22 @@ class BoardAdminComponent extends Component {
         );
 
         this.getVacations();
+
+        socket.on('addedVacation', () => {
+            this.getVacations();
+        });
+
+        socket.on('deleteVacation', () => {
+            this.getVacations();
+        });
+
+        socket.on('updatedVacations', (payload) => {
+            this.getVacations();
+        });
+
+        socket.on('updateFollowers', () => {
+            this.getVacations();
+        });
     }
 
     getVacations = async () => {
@@ -98,7 +115,7 @@ class BoardAdminComponent extends Component {
                         {
                             this.state.vacations.map((vacation, index) => {
                                 return (
-                                    <AdminBoardTableRow vacation={vacation} key={index} vacations={this.state.vacations}
+                                    <AdminBoardTableRow vacation={vacation} key={index} user={this.props.user}
                                                         updateVacations={this.getVacations}/>
                                 )
                             })

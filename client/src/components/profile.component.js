@@ -1,16 +1,15 @@
-import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {Redirect} from 'react-router-dom';
+import {connect} from "react-redux";
 
 class Profile extends Component {
 
     render() {
-        const { user: currentUser } = this.props;
+        const {user: currentUser} = this.props;
 
         if (!currentUser) {
-            return <Redirect to="/login" />;
+            return <Redirect to="/login"/>;
         }
-
         return (
             <div className="container">
                 <header className="jumbotron">
@@ -39,7 +38,7 @@ class Profile extends Component {
 }
 
 function mapStateToProps(state) {
-    const { user } = state.auth;
+    const {user} = state.auth;
     return {
         user,
     };

@@ -4,6 +4,8 @@ import dateFormat from 'dateformat';
 import {connect} from "react-redux";
 
 function VacationCard({vacation, handleFollowedVacation, user}) {
+
+    console.log(vacation)
     const [MAX_LENGTH] = useState(200);
     const [readMore, setReadMore] = useState(false);
     const {
@@ -15,9 +17,9 @@ function VacationCard({vacation, handleFollowedVacation, user}) {
         filename,
         start_date,
         followers,
-        sortOrder: sortOrder1
+        sortOrder,
+        liked
     } = vacation;
-    const [liked, setLiked] = useState(sortOrder1);
     const linkName = readMore ? 'Read Less << ' : 'Read More >> ';
     const [image, setImage] = useState(filename);
     const [admin, setAdmin] = useState();
@@ -52,21 +54,20 @@ function VacationCard({vacation, handleFollowedVacation, user}) {
         let iconCheckedClassName = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
         let iconNotCheckedClassName = 'fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
 
-        const {sortOrder} = vacation;
+        console.log(liked);
+        // const {sortOrder} = vacation;
+
         // if 0 -> turn to 1 - uncheck
-        if (sortOrder === 0) {
-            setLiked(1);
+        if (liked === 0) {
+            // vacation.sortOrder = 1;
+            handleFollowedVacation(e, vacation, iconRef, 0);
+            iconRef.current.className = iconCheckedClassName;
+        } else {
+            // vacation.sortOrder = 0;
             handleFollowedVacation(e, vacation, iconRef, 1);
             iconRef.current.className = iconNotCheckedClassName;
         }
-
-        // if 1 -> turn to 0 - check
-        if (sortOrder === 1) {
-            setLiked(0);
-            handleFollowedVacation(e, vacation, iconRef, 0);
-            iconRef.current.className = iconCheckedClassName;
-        }
-        setLiked(Number(!sortOrder));
+        // console.log('vacationCard', vacation);
     }
 
     useEffect(() => {
@@ -88,7 +89,7 @@ function VacationCard({vacation, handleFollowedVacation, user}) {
                             </div>
                         ) : (
                             <div className="vacation__card--wrapper--body-header--icon-wrapper">
-                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers}\</p>
+                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers}</p>
                                 <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"
                                    ref={iconRef}
                                    onClick={(e) => handleFollowedFunc(e)}/>

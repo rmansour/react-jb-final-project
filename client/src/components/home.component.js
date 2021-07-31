@@ -3,6 +3,7 @@ import '../styles/homeComponent.css';
 import UserService from "../services/user.service";
 import VacationCard from "./vacationCard/vacationCard";
 import {connect} from "react-redux";
+import socket from "../SocketClass";
 
 class Home extends Component {
     constructor(props) {
@@ -14,58 +15,78 @@ class Home extends Component {
             filteredVacations: [],
             searchInput: '',
         };
-        this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
+        // this.addVacationToUsersFavorites = this.addVacationToUsersFavorites.bind(this);
         this.getVacations = this.getVacations.bind(this);
         this.handleFollowedVacation = this.handleFollowedVacation.bind(this);
     }
 
     getVacations = async () => {
-        await UserService.getFavouriteVacationsByUserIDsorted(this.props.user.id).then(
+        await UserService.getFavouriteVacationsByUserIDsorted(this.state.currentUser.id).then(
             response => {
                 this.setState({
                     vacations: response.data
                 }, () => {
-                    this.props.updateVacations(response.data);
+                    console.log(this.state.vacations);
+                    console.log('end set state');
                 });
             }
         );
     }
 
     componentDidMount() {
-        this.getVacations();
+        if (this.state.currentUser)
+            this.getVacations();
+
+        socket.on('addedVacation', () => {
+            console.log('componentDidMount going to server');
+            this.getVacations();
+        });
+
+        socket.on('deleteVacation', () => {
+            console.log('componentDidMount going to server');
+            this.getVacations();
+        });
+
+        socket.on('updatedVacations', (payload) => {
+            console.log('componentDidMount going to server');
+            this.getVacations();
+        });
+
+        socket.on('updateFollowers', () => {
+            console.log('componentDidMount going to server');
+            this.getVacations();
+            // console.log(this.state.vacations);
+
+        });
     }
 
     onSearch = (e) => {
+
         this.setState({searchInput: (e.target.value).toLowerCase()});
         let tmpArr = this.state.vacations.filter(vacation => vacation.destination.toLowerCase().includes((e.target.value).toLowerCase()));
         this.setState({filteredVacations: tmpArr});
     }
 
-    async addVacationToUsersFavorites(obj) {
-        await UserService.addVacationToUsersFavorites(obj);
-    }
-
-
-    handleFollowedVacation = async (e, vacation, iconRef, likedBool) => {
+    handleFollowedVacation = async (e, vacation, iconRef, liked) => {
+        console.log('likedBool handleFollowedVacation', liked);
+        console.log('handleFollowedVacation vacation', vacation);
         let followersObj = {
             followers: vacation.followers,
             id: vacation.id
         }
-        if (likedBool === 0) {
+        if (liked === 0) {
             await UserService.addVacationToUsersFavorites({vacationId: vacation.id, userId: this.state.currentUser.id});
             followersObj.followers += 1;
             await UserService.updateVacationFollowers(followersObj);
-            await this.getVacations();
         }
 
-        if (likedBool === 1) {
+        if (liked === 1) {
             await UserService.deleteVacationFromFavourites({
                 vacationId: vacation.id,
                 userId: this.state.currentUser.id
             });
             followersObj.followers -= 1;
             await UserService.updateVacationFollowers(followersObj);
-            await this.getVacations();
         }
     }
 
@@ -115,16 +136,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-const dispatchStateToProps = (dispatch) => {
-    return {
-
-        updateVacations(value) {
-            dispatch({
-                type: "updateVacations",
-                payload: value
-            })
-        }
-    }
-}
-
-export default connect(mapStateToProps, dispatchStateToProps)(Home);
+export default connect(mapStateToProps)(Home);
