@@ -9,6 +9,14 @@ automatically has a role of "ROLE_USER". When loading the site, it checks for th
 admin navigation bar and prevents the admin from liking a vacation. If the role is user, it hides the admin sections (
 followers stats and admin board).
 
+---
+
+
+## SIDE NOTE:
+- **_Add your own db name and password for the connection to MySQL in the './app/config/db.config.js' file_**
+- **_If you want to initialize your own users and password, vacations and favorites, please add {force: true} to the sequelize's sync function in the './server.js' file and uncomment the initial() function call in line 65_**
+
+---
 
 # Server:
 
