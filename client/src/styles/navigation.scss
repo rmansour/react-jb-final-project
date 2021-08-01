@@ -1,29 +1,26 @@
 .navbar {
+  width: 100%;
+  padding-top: 1rem;
   padding-right: 15px;
   padding-left: 15px;
-  //height: 6vh;
-  //display: inline-flex;
-  //width: 100%;
-  //justify-content: center;
-  //align-self: center;
-  //align-content: center;
+  //background-color: rgba(249,249,249, .9);
 
   &-brand {
-    line-height: 1.7;
+    //line-height: 1.7;
     font-size: 1.3rem;
     padding-top: 0;
-    padding-bottom: 0;
+    //padding-bottom: 0;
   }
 }
 
-//.navbar-expand {
-//  justify-content: space-between;
-//}
-//
-//.navbar__home {
-//  justify-content: flex-start;
-//}
-//
-//.navbar__login {
-//  justify-content: flex-end;
-//}
+.navbar-expand {
+  justify-content: space-between;
+}
+
+.navbar__home {
+  justify-content: flex-start;
+}
+
+.navbar__login {
+  justify-content: flex-end;
+}

@@ -1,3 +1,8 @@
+:root {
+  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap");
+  /* Works on Firefox */
+  /* Works on Chrome, Edge, and Safari */
+}
 :root .hide {
   display: none;
   visibility: hidden;
@@ -5,18 +10,77 @@
   width: 0;
 }
 :root .navbar {
+  width: 100%;
+  padding-top: 1rem;
   padding-right: 15px;
   padding-left: 15px;
 }
 :root .navbar-brand {
-  line-height: 1.7;
   font-size: 1.3rem;
   padding-top: 0;
-  padding-bottom: 0;
+}
+:root .navbar-expand {
+  justify-content: space-between;
+}
+:root .navbar__home {
+  justify-content: flex-start;
+}
+:root .navbar__login {
+  justify-content: flex-end;
+}
+:root .row {
+  margin: 0;
+}
+:root body {
+  margin: 0 auto;
+  font-family: "JetBrains Mono", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+:root * {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 white;
+}
+:root *::-webkit-scrollbar {
+  width: 8px;
+}
+:root *::-webkit-scrollbar-track {
+  background: white;
+}
+:root *::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
+  border-radius: 20px;
+}
+:root .btn-check:active + .btn-outline-info, :root .btn-check:checked + .btn-outline-info, :root .btn-outline-info.active, :root .btn-outline-info.dropdown-toggle.show, :root .btn-outline-info:active {
+  background-color: #0d6efd;
+}
+:root .btn-outline-info:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+:root .btn-outline-info {
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+:root .btn-check:focus + .btn-outline-info, :root .btn-outline-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+:root .read-more-link {
+  color: #0d6efd;
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+:root .read-more-link:hover {
+  color: #2a52be;
+}
+:root .modal-content {
+  border: none;
+}
+:root .form-control:focus {
+  box-shadow: none;
 }
 
 .app__component {
-  height: 94vh;
+  margin: 0 auto;
 }
 
 label {
@@ -36,9 +100,9 @@ label {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {

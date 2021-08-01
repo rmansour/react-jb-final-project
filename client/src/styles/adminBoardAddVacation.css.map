@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "adminBoardAddVacation.scss"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;;AAIJ;EACE;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;EACA",
+  "file": "adminBoardAddVacation.css"
+}

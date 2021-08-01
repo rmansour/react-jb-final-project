@@ -1,49 +1,133 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '../../styles/vacationCard.scss';
 import dateFormat from 'dateformat';
-import {useState} from 'react';
-// import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
-function VacationCard({vacation}) {
-    const [MAX_LENGTH] = useState(250);
-    console.log(vacation);
+function VacationCard({vacation, handleFollowedVacation, user}) {
+
+    // console.log(vacation)
+    const [MAX_LENGTH] = useState(200);
+    const [readMore, setReadMore] = useState(false);
+    const {
+        destination,
+        price,
+        end_date,
+        description,
+        id,
+        filename,
+        start_date,
+        followers,
+        sortOrder,
+        liked
+    } = vacation;
+    const linkName = readMore ? 'Read Less << ' : 'Read More >> ';
+    const [image, setImage] = useState(filename);
+    const [admin, setAdmin] = useState();
+
+    const iconRef = useRef();
+
+    const expanded = (text) => {
+        if (readMore === true)
+            return <div className="overflow-description-div">{text}</div>;
+        else
+            return <div>{text.substring(0, MAX_LENGTH)}...</div>;
+    }
+
+    useEffect(() => {
+        if (user) {
+            setAdmin(user.roles.includes("ROLE_ADMIN"));
+        }
+    }, [admin]);
+
+    useEffect(() => {
+        if (!admin)
+            checkLiked();
+    }, [iconRef.current]);
+
+    const checkLiked = () => {
+        const {sortOrder} = vacation;
+        if (sortOrder === 0)
+            iconRef.current.className = "fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon";
+    }
+
+    const handleFollowedFunc = (e) => {
+        let iconCheckedClassName = 'fas fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
+        let iconNotCheckedClassName = 'fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon';
+
+        console.log(liked);
+        // const {sortOrder} = vacation;
+
+        // if 0 -> turn to 1 - uncheck
+        if (liked === 0) {
+            // vacation.sortOrder = 1;
+            handleFollowedVacation(e, vacation, iconRef, 0);
+            iconRef.current.className = iconCheckedClassName;
+        } else {
+            // vacation.sortOrder = 0;
+            handleFollowedVacation(e, vacation, iconRef, 1);
+            iconRef.current.className = iconNotCheckedClassName;
+        }
+        // console.log('vacationCard', vacation);
+    }
+
+    useEffect(() => {
+        setImage(filename)
+    }, [filename]);
+
     return (
-        // <Link style={{textDecoration: "none", color: "black", cursor: "pointer"}} to={['/vacation-info/:id', vacation.id]}>
-            <div className="vacation__card">
-                <div className="vacation__card--destination-pic">
-                    <img src={vacation.src} alt="destination-pic"/>
+        <div className="vacation__card" key={id}>
+            <div className="vacation__card--wrapper">
+                <div className="vacation__card--wrapper--destination-pic">
+                    <img src={`http://localhost:8080/${image}`} alt="destination-pic"/>
                 </div>
-
-                <main className="vacation__card--body">
-                    <header className="vacation__card--header">
-                        <h2>{vacation.destination}</h2>
-                        <section className="vacation__card--body-dates">
+                <div className="vacation__card--wrapper--body">
+                    <header className="vacation__card--wrapper--body-header">
+                        <h2 className="vacation__card--wrapper--body-header-text">{destination}</h2>
+                        {admin ? (
+                            <div className="vacation__card--wrapper--body-header--icon-wrapper">
+                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers} likes</p>
+                            </div>
+                        ) : (
+                            <div className="vacation__card--wrapper--body-header--icon-wrapper">
+                                <p className="vacation__card--wrapper--body-header--icon-wrapper--followers-count">{followers}</p>
+                                <i className="fal fa-heart vacation__card--wrapper--body-header--icon-wrapper--heart-icon"
+                                   ref={iconRef}
+                                   onClick={(e) => handleFollowedFunc(e)}/>
+                            </div>
+                        )}
+                        <section className="vacation__card--wrapper--body-dates">
                             <p>
-                                <i className="vacation__card--body-dates-border">{(dateFormat(vacation.start_date, "dd.mm.yyyy"))} - {dateFormat(vacation.end_date, "dd.mm.yyyy")}</i>
+                                <i className="vacation__card--wrapper--body-dates-border">
+                                    {(dateFormat(start_date, "dd.mm.yyyy"))} - {dateFormat(end_date, "dd.mm.yyyy")}
+                                </i>
                             </p>
-                            {/*<hr style={{width: "35%"}}/>*/}
                         </section>
                     </header>
 
-                    {vacation.description.length > MAX_LENGTH ?
-                        (
-                            <p>
-                                {
-                                    `${vacation.description.substring(0, MAX_LENGTH)} ... `
-                                }
-                            </p>
-                        ) :
-                        <p>{vacation.description}</p>
-                    }
-
-                    <div className="vacation__card--price">
-                        <p>{vacation.price}$</p>
+                    <div className="vacation__card--wrapper--body-description">
+                        {expanded(description)}
                     </div>
-                </main>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a className="read-more-link" onClick={() => {
+                        setReadMore(!readMore)
+                    }}>
+                        <p>{linkName}</p>
+                    </a>
+                    <div className="vacation__card--wrapper--body--price">
+                        <p>{price}$</p>
+                    </div>
+                </div>
             </div>
-        // </Link>
-
-    );
+        </div>
+    )
+        ;
 }
 
-export default VacationCard;
+function mapStateToProps(state) {
+    const {user} = state.auth;
+    return {
+        user,
+    };
+}
+
+export default connect(mapStateToProps)(VacationCard);

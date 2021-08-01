@@ -12,13 +12,14 @@ import Login from './components/login';
 import Register from "./components/register";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardAdmin from "./components/board-admin.component";
+import BoardAdmin from "./components/adminBoard/board-admin.component";
+import VacationFollowersChart from "./components/chart/vacationFollowersChart";
 
 // actions, helpers and history
 import {logout} from "./actions/auth";
 import {clearMessage} from "./actions/messages";
 import {history} from './helpers/history';
+
 
 class App extends Component {
     constructor(props) {
@@ -26,11 +27,9 @@ class App extends Component {
         this.logOut = this.logOut.bind(this);
 
         this.state = {
-            showModeratorBoard: false,
             showAdminBoard: false,
-            currentUser: undefined
+            currentUser: undefined,
         };
-
 
         history.listen((location) => {
             props.dispatch(clearMessage()); // clear message when changing location
@@ -48,6 +47,7 @@ class App extends Component {
         }
     }
 
+
     logOut() {
         this.props.dispatch(logout());
     }
@@ -55,14 +55,25 @@ class App extends Component {
     render() {
         const {currentUser, showAdminBoard} = this.state;
 
+        if (!currentUser) {
+            history.push('/login');
+        }
         return (
             <Router history={history}>
                 <>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <div className="container-fluid">
-                            <Link to={"/"} className="navbar-brand">
-                                Travel Agency
-                            </Link>
+                            {currentUser ? (
+                                <Link to={{pathname: "/",}}
+                                      className="navbar-brand">
+                                    Travel Agency
+                                </Link>
+                            ) : (
+                                <Link to={{pathname: "/login",}}
+                                      className="navbar-brand">
+                                    Travel Agency
+                                </Link>
+                            )}
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="Toggle navigation">
@@ -78,15 +89,15 @@ class App extends Component {
                                             </Link>
                                         </li>
                                     )}
-
-                                    {currentUser && (
+                                    {showAdminBoard && (
                                         <li className="nav-item">
-                                            <Link to={"/user"} className="nav-link">
-                                                User
+                                            <Link to={"/followers-chart"} className="nav-link">
+                                                Followers' Chart
                                             </Link>
                                         </li>
                                     )}
                                 </div>
+
 
                                 {currentUser ? (
                                     <div className="navbar-nav ms-auto">
@@ -122,13 +133,12 @@ class App extends Component {
 
                     <div className="app__component">
                         <Switch>
-                            <Route exact path={["/", "/home"]} component={Home}/>
+                            <Route exact path={["/", "/home", ""]} component={Home}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/profile" component={Profile}/>
-                            <Route path="/user" component={BoardUser}/>
+                            <Route exact path="/followers-chart" component={VacationFollowersChart}/>
                             <Route path="/admin" component={BoardAdmin}/>
-                            {/*<Route path="/vacation-info/:id" component={VacationCard}></Route>*/}
                         </Switch>
                     </div>
                 </>

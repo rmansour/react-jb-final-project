@@ -1,19 +1,30 @@
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize, db) => {
     const favoriteVacations = sequelize.define("favorite_vacations", {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        vacationId: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        userID: {
-            type: Sequelize.INTEGER,
-            allowNull: false
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                allowNull: false,
+                autoIncrement: true
+            },
+            vacationId: {
+                type: Sequelize.INTEGER,
+                allowNull:false,
+                unique: 'vacationId'
+            },
+            userId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                unique: 'userId'
 
-        }
-    });
+            },
+        },
+        {
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['userId', 'vacationId']
+                }
+            ]
+        });
     return favoriteVacations;
 }

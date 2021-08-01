@@ -1,1 +1,10 @@
-{"version":3,"sourceRoot":"","sources":["navigation.scss"],"names":[],"mappings":"AAAA;EACE;EACA;;AAQA;EACE;EACA;EACA;EACA","file":"navigation.css"}
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "navigation.scss"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACE;EACA;EACA;EACA;;AAGA;EAEE;EACA;;;AAKJ;EACE;;;AAGF;EACE;;;AAGF;EACE",
+  "file": "navigation.css"
+}
